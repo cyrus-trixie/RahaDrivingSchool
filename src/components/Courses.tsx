@@ -28,7 +28,7 @@ const Courses = () => {
       id: "full-course",
       title: "Full Course (Manual)",
       price: "KSh 13,500",
-      originalPrice: "KSh 17,000", // was 17k before
+      originalPrice: "KSh 17,000",
       duration: "4 weeks",
       image: manualCarImage,
       category: "Beginner Driver",
@@ -64,7 +64,7 @@ const Courses = () => {
       price: "KSh 7,000",
       duration: "3 weeks",
       image: proCarImage,
-      category: "Class B & A2 License",
+      category: "Class A2 License",
       features: [
         "PDL & Test Booking Included",
         "Get both Car & Motorcycle license",
@@ -82,7 +82,7 @@ const Courses = () => {
   };
 
   return (
-    <section id="courses" className="py-16 bg-muted/30">
+    <section id="courses" className="py-16 bg-muted/30 dark:bg-gray-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -91,10 +91,10 @@ const Courses = () => {
           viewport={{ once: true }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
             Courses & Fees
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
             Choose your course based on car type and training level.
           </p>
         </motion.div>
@@ -109,27 +109,31 @@ const Courses = () => {
               viewport={{ once: true }}
               whileHover={{ y: -5 }}
             >
-              <Card className="shadow-lg overflow-hidden h-full">
+              <Card className="shadow-lg overflow-hidden h-full dark:bg-gray-800 dark:border-gray-700">
                 <div className="aspect-video relative">
                   <img
                     src={course.image}
                     alt={course.title}
                     className="w-full h-full object-cover"
                   />
-                  <div className="absolute top-3 right-3 bg-primary text-primary-foreground px-2 py-1 rounded text-xs font-medium">
+                  <div className="absolute top-3 right-3 bg-blue-600 text-white px-2 py-1 rounded text-xs font-medium">
                     {course.category}
                   </div>
                 </div>
                 <CardHeader className="text-center pb-2">
-                  <CardTitle className="text-xl">{course.title}</CardTitle>
-                  <CardDescription>{course.duration}</CardDescription>
+                  <CardTitle className="text-2xl font-bold text-gray-900 dark:text-white">
+                    {course.title}
+                  </CardTitle>
+                  <CardDescription className="text-gray-500 dark:text-gray-400">
+                    {course.duration}
+                  </CardDescription>
                   <div className="mt-2">
                     {course.originalPrice && (
-                      <div className="text-sm text-muted-foreground line-through">
+                      <div className="text-sm text-gray-400 dark:text-gray-500 line-through">
                         {course.originalPrice}
                       </div>
                     )}
-                    <div className="text-3xl font-bold text-primary">
+                    <div className="text-3xl font-extrabold text-blue-600 dark:text-blue-400">
                       {course.price}
                     </div>
                   </div>
@@ -139,15 +143,15 @@ const Courses = () => {
                     {course.features.map((feature, featureIndex) => (
                       <li
                         key={featureIndex}
-                        className="flex items-center text-sm"
+                        className="flex items-start text-base text-gray-700 dark:text-gray-300"
                       >
-                        <Check className="w-4 h-4 text-primary mr-3 flex-shrink-0" />
+                        <Check className="w-5 h-5 text-blue-600 dark:text-blue-400 mr-3 flex-shrink-0" />
                         {feature}
                       </li>
                     ))}
                   </ul>
                   <Button
-                    className="w-full hover:scale-105 transition-transform duration-200"
+                    className="w-full hover:scale-105 transition-transform duration-200 bg-blue-600 hover:bg-blue-700 text-white dark:bg-blue-500 dark:hover:bg-blue-600"
                     onClick={() => handleEnroll(course.id)}
                   >
                     Enroll Now
