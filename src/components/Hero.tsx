@@ -2,30 +2,27 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import heroImage from "@/assets/hero-driving-lesson.jpg";
 import ntsaLogo from "@/assets/ntsa-approved (2).png";
-import { Shield, Award } from "lucide-react";
+import { Award } from "lucide-react";
 
-const Hero = () => {
-  const scrollToContact = () => {
-    const element = document.getElementById('contact');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
+interface HeroProps {
+  onEnroll: (courseId?: string) => void;
+}
 
+const Hero = ({ onEnroll }: HeroProps) => {
   return (
     <section id="hero" className="relative h-screen flex items-center justify-center">
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: `url(${heroImage})` }}
       >
-        <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+        <div className="absolute inset-0 bg-black bg-opacity-60"></div>
       </div>
-      
+
       <motion.div 
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.2 }}
-        className="relative z-10 text-center text-white max-w-4xl mx-auto px-4 sm:px-6 lg:px-8"
+        className="relative z-10 text-center text-white max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 [text-shadow:0_2px_4px_rgba(0,0,0,0.4)]"
       >
         {/* NTSA Approval Badge */}
         <motion.div 
@@ -43,7 +40,7 @@ const Hero = () => {
             <span className="text-sm font-medium">Licensed Instructors</span>
           </div>
         </motion.div>
-        
+
         <motion.h1 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -52,6 +49,7 @@ const Hero = () => {
         >
           Learn to Drive with Confidence
         </motion.h1>
+
         <motion.p 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -60,6 +58,7 @@ const Hero = () => {
         >
           Professional driving instruction with certified instructors.
         </motion.p>
+
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -68,7 +67,7 @@ const Hero = () => {
           <Button 
             size="lg" 
             className="text-lg px-8 py-3 hover:scale-105 transition-transform duration-200"
-            onClick={scrollToContact}
+            onClick={() => onEnroll()} // 👈 This triggers the popup form
           >
             Enroll Now
           </Button>

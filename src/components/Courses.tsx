@@ -1,9 +1,20 @@
+// app/(main)/courses/page.tsx or wherever you're calling it
+"use client";
+
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
 import EnrollmentForm from "./EnrollmentForm";
+
+// Images
 import manualCarImage from "@/assets/raha2.webp";
 import automaticCarImage from "@/assets/raha4.webp";
 import proCarImage from "@/assets/pro-car.jpg";
@@ -14,51 +25,51 @@ const Courses = () => {
 
   const courses = [
     {
-      id: "manual",
-      title: "Manual Transmission",
-      price: "KSh 25,000",
-      duration: "4 weeks", 
+      id: "full-course",
+      title: "Full Course (Manual)",
+      price: "KSh 13,500",
+      duration: "4 weeks",
       image: manualCarImage,
-      category: "Standard Cars",
+      category: "Beginner Driver",
       features: [
-        "20 practical lessons",
-        "Highway driving",
-        "Parking skills",
-        "Theory classes",
-        "Free retake",
-        "Pay in installments"
+        "PDL & Test Booking Included",
+        "Comprehensive Practical Lessons",
+        "Highway & Town Driving",
+        "In-depth Theory Classes",
+        "Flexible Payment Plan",
+        "Certified Instructors"
       ]
     },
     {
-      id: "automatic",
-      title: "Automatic Transmission", 
-      price: "KSh 30,000",
-      duration: "3 weeks",
+      id: "refresher-course",
+      title: "Refresher Course",
+      price: "KSh 10,000",
+      duration: "1-2 weeks",
       image: automaticCarImage,
-      category: "Modern Cars",
+      category: "Experienced Drivers",
       features: [
-        "15 practical lessons",
-        "City & highway driving",
-        "Modern vehicles",
-        "Theory classes",
-        "Free retake",
-        "Pay in installments"
+        "PDL & Test Booking Included",
+        "Ideal for licensed drivers",
+        "Customized refresher lessons",
+        "Build confidence on the road",
+        "Flexible Scheduling",
+        "Manual & Automatic available"
       ]
     },
     {
-      id: "pro",
-      title: "Pro Driver Course",
-      price: "KSh 45,000", 
-      duration: "6 weeks",
+      id: "b-a2-course",
+      title: "Vehicle & Motorcycle (B/A2)",
+      price: "KSh 7,000",
+      duration: "3 weeks",
       image: proCarImage,
-      category: "Premium Vehicles",
+      category: "Class B & A2 License",
       features: [
-        "30 practical lessons",
-        "Defensive driving",
-        "Night training",
-        "Advanced skills",
-        "Commercial basics",
-        "Pay in installments"
+        "PDL & Test Booking Included",
+        "Get both Car & Motorcycle license",
+        "NTSA-Approved Curriculum",
+        "Expert Instructors for both",
+        "Safety First Approach",
+        "Affordable & Quick Path to Licensing"
       ]
     }
   ];
@@ -71,7 +82,7 @@ const Courses = () => {
   return (
     <section id="courses" className="py-16 bg-muted/30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -85,7 +96,7 @@ const Courses = () => {
             Choose your course based on car type and training level.
           </p>
         </motion.div>
-        
+
         <div className="grid md:grid-cols-3 gap-8">
           {courses.map((course, index) => (
             <motion.div
@@ -98,8 +109,8 @@ const Courses = () => {
             >
               <Card className="shadow-lg overflow-hidden h-full">
                 <div className="aspect-video relative">
-                  <img 
-                    src={course.image} 
+                  <img
+                    src={course.image}
                     alt={course.title}
                     className="w-full h-full object-cover"
                   />
@@ -117,14 +128,17 @@ const Courses = () => {
                 <CardContent>
                   <ul className="space-y-2 mb-6">
                     {course.features.map((feature, featureIndex) => (
-                      <li key={featureIndex} className="flex items-center text-sm">
+                      <li
+                        key={featureIndex}
+                        className="flex items-center text-sm"
+                      >
                         <Check className="w-4 h-4 text-primary mr-3 flex-shrink-0" />
                         {feature}
                       </li>
                     ))}
                   </ul>
-                  <Button 
-                    className="w-full hover:scale-105 transition-transform duration-200" 
+                  <Button
+                    className="w-full hover:scale-105 transition-transform duration-200"
                     onClick={() => handleEnroll(course.id)}
                   >
                     Enroll Now
@@ -134,8 +148,8 @@ const Courses = () => {
             </motion.div>
           ))}
         </div>
-        
-        <EnrollmentForm 
+
+        <EnrollmentForm
           isOpen={enrollmentOpen}
           onClose={() => setEnrollmentOpen(false)}
           selectedCourse={selectedCourse}

@@ -83,9 +83,9 @@ const EnrollmentForm = ({ isOpen, onClose, selectedCourse }: EnrollmentFormProps
                 <SelectValue placeholder="Select course" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="manual">Manual Transmission</SelectItem>
-                <SelectItem value="automatic">Automatic Transmission</SelectItem>
-                <SelectItem value="pro">Pro Driver Course</SelectItem>
+                <SelectItem value="full-course">Full Course (Manual)</SelectItem>
+                <SelectItem value="refresher-course">Refresher Course</SelectItem>
+                <SelectItem value="b-a2-course">Vehicle & Motorcycle (B/A2)</SelectItem>
               </SelectContent>
             </Select>
           </div>
