@@ -1,4 +1,4 @@
-// app/(main)/courses/page.tsx or wherever you're calling it
+// app/(main)/courses/page.tsx
 "use client";
 
 import { useState } from "react";
@@ -28,10 +28,12 @@ const Courses = () => {
       id: "full-course",
       title: "Full Course (Manual)",
       price: "KSh 13,500",
+      originalPrice: "KSh 17,000", // was 17k before
       duration: "4 weeks",
       image: manualCarImage,
       category: "Beginner Driver",
       features: [
+        "🔥 August Time Offer",
         "PDL & Test Booking Included",
         "Comprehensive Practical Lessons",
         "Highway & Town Driving",
@@ -42,7 +44,7 @@ const Courses = () => {
     },
     {
       id: "refresher-course",
-      title: "Refresher Course",
+      title: "Short Course",
       price: "KSh 10,000",
       duration: "1-2 weeks",
       image: automaticCarImage,
@@ -57,8 +59,8 @@ const Courses = () => {
       ]
     },
     {
-      id: "b-a2-course",
-      title: "Vehicle & Motorcycle (B/A2)",
+      id: "a2-course",
+      title: "Vehicle & Motorcycle (A2)",
       price: "KSh 7,000",
       duration: "3 weeks",
       image: proCarImage,
@@ -121,8 +123,15 @@ const Courses = () => {
                 <CardHeader className="text-center pb-2">
                   <CardTitle className="text-xl">{course.title}</CardTitle>
                   <CardDescription>{course.duration}</CardDescription>
-                  <div className="text-3xl font-bold text-primary mt-2">
-                    {course.price}
+                  <div className="mt-2">
+                    {course.originalPrice && (
+                      <div className="text-sm text-muted-foreground line-through">
+                        {course.originalPrice}
+                      </div>
+                    )}
+                    <div className="text-3xl font-bold text-primary">
+                      {course.price}
+                    </div>
                   </div>
                 </CardHeader>
                 <CardContent>
