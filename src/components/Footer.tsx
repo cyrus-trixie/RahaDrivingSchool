@@ -27,7 +27,9 @@ const Footer = () => {
               <li>
                 <a href="tel:+254707808565" className="hover:text-primary-foreground">Phone: +254 707 808565</a>
               </li>
-              <li>Email: info@raha.co.ke</li>
+              <li>
+                <a href="mailto:Rahadrivingsch@gmail.com" className="hover:text-primary-foreground">Email: Rahadrivingsch@gmail.com</a>
+              </li>
               <li>Main: Pioneer Plaza, Nakuru</li>
               <li>Branch: Olive Inn, Kiamunyi</li>
             </ul>

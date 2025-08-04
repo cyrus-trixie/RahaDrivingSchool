@@ -32,16 +32,23 @@ const Contact = () => {
           <Card className="shadow-lg text-center">
             <CardHeader>
               <Phone className="w-8 h-8 text-primary mx-auto mb-2" />
-              <CardTitle className="text-lg">Phone</CardTitle>
+              <CardTitle className="text-lg">Phone & Email</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-muted-foreground mb-4">Call us anytime</p>
-              <a 
-                href="tel:+254707808565" 
-                className="text-primary font-semibold hover:underline"
-              >
-                +254 707 808565
-              </a>
+              <div className="space-y-2">
+                <a
+                  href="tel:+254707808565"
+                  className="block text-primary font-semibold hover:underline"
+                >
+                  +254 707 808565
+                </a>
+                <a
+                  href="mailto:Rahadrivingsch@gmail.com"
+                  className="block text-primary font-semibold hover:underline text-sm break-all"
+                >
+                  Rahadrivingsch@gmail.com
+                </a>
+              </div>
             </CardContent>
           </Card>
 
