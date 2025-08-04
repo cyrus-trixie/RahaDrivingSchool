@@ -30,41 +30,42 @@ const Testimonials = () => {
   ];
 
   return (
-    <section id="testimonials" className="py-16 bg-muted/30">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            What Our Students Say
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Don't just take our word for it. Here's what our satisfied students 
-            have to say about their experience with Raha Driving School.
-          </p>
-        </div>
-        
-        <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
+    <section id="testimonials" className="py-20 bg-gray-50 dark:bg-gray-900">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 className="text-4xl font-extrabold text-gray-900 dark:text-white mb-4">
+          What Our Students Say
+        </h2>
+        <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto mb-12">
+          Don't just take our word for it. Here's what our satisfied students 
+          have to say about their experience with Raha Driving School.
+        </p>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {testimonials.map((testimonial, index) => (
-            <Card key={index} className="shadow-lg">
-              <CardContent className="p-6">
+            <Card 
+              key={index} 
+              className="relative p-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg transition-transform hover:scale-105"
+            >
+              <CardContent className="p-0">
                 <div className="flex items-center mb-4">
                   {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                    <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400 mr-1" />
                   ))}
                 </div>
-                <p className="text-muted-foreground mb-4 italic">
+                <p className="text-gray-700 dark:text-gray-300 mb-6 italic">
                   "{testimonial.review}"
                 </p>
                 <div className="flex items-center">
                   <img 
                     src={testimonial.avatar} 
                     alt={testimonial.name}
-                    className="w-12 h-12 rounded-full object-cover mr-4"
+                    className="w-14 h-14 rounded-full object-cover border-2 border-primary mr-4"
                   />
                   <div>
-                    <div className="font-semibold text-foreground">
+                    <div className="font-semibold text-gray-900 dark:text-white">
                       {testimonial.name}
                     </div>
-                    <div className="text-sm text-muted-foreground">
+                    <div className="text-sm text-gray-500 dark:text-gray-400">
                       Verified Student
                     </div>
                   </div>
