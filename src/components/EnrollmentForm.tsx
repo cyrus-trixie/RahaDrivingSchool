@@ -35,7 +35,7 @@ const EnrollmentForm = ({
     email: "",
     course: selectedCourse || "",
     preferredTime: "",
-    hasLicense: "",
+    licenseClass: "", // This field remains from the previous update
   });
 
   const handleChange = (field: string, value: string) => {
@@ -55,7 +55,7 @@ const EnrollmentForm = ({
           phone: formData.phone,
           course: formData.course,
           preferred_time: formData.preferredTime,
-          license_status: formData.hasLicense,
+          license_class: formData.licenseClass,
           time: new Date().toLocaleString(),
         },
         import.meta.env.VITE_EMAILJS_PUBLIC_KEY!
@@ -77,7 +77,7 @@ const EnrollmentForm = ({
         email: "",
         course: "",
         preferredTime: "",
-        hasLicense: "",
+        licenseClass: "",
       });
     } catch (error) {
       console.error("EmailJS error:", error);
@@ -151,11 +151,9 @@ const EnrollmentForm = ({
                 <SelectValue placeholder="Select course" />
               </SelectTrigger>
               <SelectContent>
+                {/* The "Vehicle & Motorcycle (A2)" item has been removed */}
                 <SelectItem value="full-course">Full Course (Manual)</SelectItem>
                 <SelectItem value="short-course">Short Course</SelectItem>
-                <SelectItem value="a2-course">
-                  Vehicle & Motorcycle (A2)
-                </SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -180,19 +178,19 @@ const EnrollmentForm = ({
           </div>
 
           <div className="grid gap-1.5">
-            <Label htmlFor="hasLicense" className="text-sm text-zinc-600">
-              Learner's Permit
+            <Label htmlFor="licenseClass" className="text-sm text-zinc-600">
+              Category of Class
             </Label>
             <Select
-              value={formData.hasLicense}
-              onValueChange={(val) => handleChange("hasLicense", val)}
+              value={formData.licenseClass}
+              onValueChange={(val) => handleChange("licenseClass", val)}
             >
               <SelectTrigger className="focus-visible:ring-2 focus-visible:ring-blue-600">
-                <SelectValue placeholder="Do you have one?" />
+                <SelectValue placeholder="Select license class" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="yes">Yes</SelectItem>
-                <SelectItem value="no">No</SelectItem>
+                <SelectItem value="B1-automatic">B1 Automatic Car</SelectItem>
+                <SelectItem value="B2-manual">B2 Manual Car</SelectItem>
               </SelectContent>
             </Select>
           </div>
