@@ -2,68 +2,69 @@
 import { useState, useRef, useEffect } from "react";
 import { Menu, X, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
-
-// Import the lottie-web library
-import lottie from 'lottie-web';
-// Import your Lottie animation file using a relative path
-import smileyAnimation from '../assets/lottie/Happy SUN.json';
+import lottie from "lottie-web";
+import carAnimation from "../assets/lottie/car.json";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const lottieContainer = useRef(null);
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      element.scrollIntoView({ behavior: "smooth" });
       setIsOpen(false);
     }
   };
 
   const makeCall = () => {
-    window.location.href = 'tel:+254707808565';
+    window.location.href = "tel:+254707808565";
   };
-
-  const lottieContainer = useRef(null);
 
   useEffect(() => {
     if (lottieContainer.current) {
       lottie.loadAnimation({
         container: lottieContainer.current,
-        renderer: 'svg',
+        renderer: "svg",
         loop: true,
         autoplay: true,
-        animationData: smileyAnimation,
+        animationData: carAnimation,
       });
     }
   }, []);
 
+  const sections = ["hero", "about", "courses", "gallery", "testimonials", "contact"];
+
   return (
     <nav className="fixed top-0 left-0 right-0 bg-white dark:bg-gray-950 shadow-sm z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+        <div className="flex justify-between items-center h-20">
           {/* Brand Title with Lottie Animation */}
           <div className="flex-shrink-0">
             <div className="flex items-center gap-3">
-              <div ref={lottieContainer} className="w-12 h-12" /> {/* Lottie animation container */}
-              <h1 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                Raha <span className="text-primary font-extrabold">Driving School</span>
-              </h1>
+              <div ref={lottieContainer} className="w-16 h-16" /> {/* Lottie enlarged */}
+              <div className="flex flex-col">
+                <h1 className="text-2xl font-extrabold tracking-tight text-gray-900 dark:text-white font-sans">
+                  Raha <span className="text-primary">Driving School</span>
+                </h1>
+                <span className="text-xs text-muted-foreground -mt-1">
+                  Road to Success
+                </span>
+              </div>
             </div>
           </div>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:block">
-            <div className="ml-10 flex items-baseline space-x-8">
-              {["hero", "about", "courses", "gallery", "testimonials", "contact"].map((section) => (
-                <button
-                  key={section}
-                  onClick={() => scrollToSection(section)}
-                  className="text-muted-foreground hover:text-primary transition-colors text-sm font-medium"
-                >
-                  {section.charAt(0).toUpperCase() + section.slice(1)}
-                </button>
-              ))}
-            </div>
+          {/* Desktop Nav Links */}
+          <div className="hidden md:flex items-center space-x-8">
+            {sections.map((section) => (
+              <button
+                key={section}
+                onClick={() => scrollToSection(section)}
+                className="text-muted-foreground hover:text-primary transition-colors text-base font-medium font-sans"
+              >
+                {section.charAt(0).toUpperCase() + section.slice(1)}
+              </button>
+            ))}
           </div>
 
           {/* Call Now (Desktop) */}
@@ -74,7 +75,7 @@ const Navbar = () => {
             </Button>
           </div>
 
-          {/* Mobile menu button */}
+          {/* Mobile Menu Button */}
           <div className="md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
@@ -89,8 +90,8 @@ const Navbar = () => {
       {/* Mobile Navigation */}
       {isOpen && (
         <div className="md:hidden">
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white dark:bg-gray-950 border-t dark:border-gray-800">
-            {["hero", "about", "courses", "gallery", "testimonials", "contact"].map((section) => (
+          <div className="px-4 pt-2 pb-3 space-y-1 bg-white dark:bg-gray-950 border-t dark:border-gray-800">
+            {sections.map((section) => (
               <button
                 key={section}
                 onClick={() => scrollToSection(section)}
