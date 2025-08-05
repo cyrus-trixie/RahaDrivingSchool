@@ -15,9 +15,9 @@ import { Check } from "lucide-react";
 import EnrollmentForm from "./EnrollmentForm";
 
 // Images
+// Ensure these paths are correct for your project
 import manualCarImage from "@/assets/raha2.webp";
-import automaticCarImage from "@/assets/raha4.webp";
-import proCarImage from "@/assets/pro-car.jpg";
+import automaticCarImage from "@/assets/raha1.webp";
 
 const Courses = () => {
   const [enrollmentOpen, setEnrollmentOpen] = useState(false);
@@ -58,22 +58,6 @@ const Courses = () => {
         "Manual & Automatic available"
       ]
     },
-    {
-      id: "a2-course",
-      title: "Vehicle & Motorcycle (A2)",
-      price: "KSh 7,000",
-      duration: "3 weeks",
-      image: proCarImage,
-      category: "Class A2 License",
-      features: [
-        "PDL & Test Booking Included",
-        "Get both Car & Motorcycle license",
-        "NTSA-Approved Curriculum",
-        "Expert Instructors for both",
-        "Safety First Approach",
-        "Affordable & Quick Path to Licensing"
-      ]
-    }
   ];
 
   const handleEnroll = (courseId: string) => {
@@ -95,11 +79,12 @@ const Courses = () => {
             Courses & Fees
           </h2>
           <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            Choose your course based on car type and training level.
+            Choose your course based on your needs and training level.
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        {/* Grid for the course cards */}
+        <div className="grid md:grid-cols-2 gap-8 justify-center">
           {courses.map((course, index) => (
             <motion.div
               key={course.id}
@@ -108,8 +93,10 @@ const Courses = () => {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
               whileHover={{ y: -5 }}
+              // Apply max-width and auto margins to reduce card size and center it within its grid column
+              className="max-w-lg mx-auto w-full"
             >
-              <Card className="shadow-lg overflow-hidden h-full dark:bg-gray-800 dark:border-gray-700">
+              <Card className="shadow-lg overflow-hidden h-full dark:bg-gray-800 dark:border-gray-700 hover:shadow-xl transition-all duration-300 border-2 border-transparent hover:border-blue-500 flex flex-col">
                 <div className="aspect-video relative">
                   <img
                     src={course.image}
@@ -120,26 +107,31 @@ const Courses = () => {
                     {course.category}
                   </div>
                 </div>
-                <CardHeader className="text-center pb-2">
-                  <CardTitle className="text-2xl font-bold text-gray-900 dark:text-white">
+                <CardHeader className="text-center pb-2 flex-shrink-0">
+                  <CardTitle className="text-3xl font-extrabold text-gray-900 dark:text-white">
                     {course.title}
                   </CardTitle>
-                  <CardDescription className="text-gray-500 dark:text-gray-400">
+                  <CardDescription className="text-gray-500 dark:text-gray-400 font-semibold mt-1">
                     {course.duration}
                   </CardDescription>
-                  <div className="mt-2">
+                  <div className="mt-4">
                     {course.originalPrice && (
                       <div className="text-sm text-gray-400 dark:text-gray-500 line-through">
                         {course.originalPrice}
                       </div>
                     )}
-                    <div className="text-3xl font-extrabold text-blue-600 dark:text-blue-400">
+                    <div className="text-4xl font-black text-blue-600 dark:text-blue-400">
                       {course.price}
                     </div>
+                    {/* Display the deposit option */}
+                    <p className="mt-2 text-sm font-semibold text-gray-600 dark:text-gray-300">
+                      Or pay KSh 5,000 deposit
+                    </p>
                   </div>
                 </CardHeader>
-                <CardContent>
-                  <ul className="space-y-2 mb-6">
+                {/* Ensure the button is visible by managing flex-grow */}
+                <CardContent className="flex flex-col flex-grow">
+                  <ul className="space-y-3 mb-6"> {/* Removed flex-grow from here */}
                     {course.features.map((feature, featureIndex) => (
                       <li
                         key={featureIndex}
@@ -150,12 +142,15 @@ const Courses = () => {
                       </li>
                     ))}
                   </ul>
-                  <Button
-                    className="w-full hover:scale-105 transition-transform duration-200 bg-blue-600 hover:bg-blue-700 text-white dark:bg-blue-500 dark:hover:bg-blue-600"
-                    onClick={() => handleEnroll(course.id)}
-                  >
-                    Enroll Now
-                  </Button>
+                  {/* mt-auto pushes the button to the bottom */}
+                  <div className="mt-auto">
+                    <Button
+                      className="w-full hover:scale-105 transition-transform duration-200 bg-blue-600 hover:bg-blue-700 text-white dark:bg-blue-500 dark:hover:bg-blue-600"
+                      onClick={() => handleEnroll(course.id)}
+                    >
+                      Enroll Now
+                    </Button>
+                  </div>
                 </CardContent>
               </Card>
             </motion.div>
