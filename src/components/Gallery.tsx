@@ -25,8 +25,8 @@ const Gallery = () => {
     },
     {
       src: nightDriving,
-      alt: "Night driving practice",
-      title: "Night Lessons"
+      alt: "Day driving practice",
+      title: "Day Lessons"
     },
     {
       src: classroomImage,

@@ -25,7 +25,7 @@ const Testimonials = () => {
     {
       name: "David Kamau",
       avatar: avatarMan2,
-      review: "The best driving school in Nairobi! Flexible schedules and experienced instructors. I'm now a confident driver thanks to them."
+      review: "The best driving school in Nakuru! Flexible schedules and experienced instructors. I'm now a confident driver thanks to them."
     }
   ];
 
