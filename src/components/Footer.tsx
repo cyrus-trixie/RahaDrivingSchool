@@ -1,3 +1,4 @@
+// components/Footer.tsx
 import { Phone, Mail, MapPin, Car } from "lucide-react";
 
 const Footer = () => {
@@ -41,20 +42,51 @@ const Footer = () => {
           {/* Contact Info */}
           <div className="md:col-span-1">
             <h4 className="text-lg font-semibold text-white mb-4">Contact Info</h4>
-            <ul className="space-y-2 text-sm text-gray-400">
-              <li className="flex items-center">
-                <Phone className="w-4 h-4 mr-3 text-blue-400 flex-shrink-0" />
-                <a href="tel:+254707808565" className="hover:text-blue-400 transition-colors">+254 707 808565</a>
+            <ul className="space-y-4 text-sm text-gray-400">
+              {/* Main Office */}
+              <li>
+                <div className="flex items-start mb-2">
+                  <MapPin className="w-4 h-4 mr-3 text-blue-400 mt-1 flex-shrink-0" />
+                  <div className="space-y-1">
+                    <p className="font-semibold text-white">Main Office</p>
+                    <p>Pioneer Plaza, Nakuru</p>
+                    <div className="flex items-center mt-1">
+                      <Phone className="w-4 h-4 mr-2 text-blue-400" />
+                      <a href="tel:+254707808565" className="hover:text-blue-400 transition-colors">+254 707 808565</a>
+                    </div>
+                    <div className="flex items-center mt-1">
+                      <Mail className="w-4 h-4 mr-2 text-blue-400" />
+                      <a href="mailto:Rahadrivingsch@gmail.com" className="hover:text-blue-400 transition-colors break-all">Rahadrivingsch@gmail.com</a>
+                    </div>
+                  </div>
+                </div>
               </li>
-              <li className="flex items-center">
-                <Mail className="w-4 h-4 mr-3 text-blue-400 flex-shrink-0" />
-                <a href="mailto:Rahadrivingsch@gmail.com" className="hover:text-blue-400 transition-colors break-all">Rahadrivingsch@gmail.com</a>
+              {/* Nakuru Branch */}
+              <li>
+                <div className="flex items-start mb-2">
+                  <MapPin className="w-4 h-4 mr-3 text-blue-400 mt-1 flex-shrink-0" />
+                  <div className="space-y-1">
+                    <p className="font-semibold text-white">Nakuru Branch</p>
+                    <p>Olive Inn, Kiamunyi</p>
+                  </div>
+                </div>
               </li>
-              <li className="flex items-start">
-                <MapPin className="w-4 h-4 mr-3 text-blue-400 mt-1 flex-shrink-0" />
-                <div className="space-y-1">
-                  <p>Pioneer Plaza, Nakuru (Main)</p>
-                  <p>Olive Inn, Kiamunyi (Branch)</p>
+              {/* Thika Branch */}
+              <li>
+                <div className="flex items-start mb-2">
+                  <MapPin className="w-4 h-4 mr-3 text-blue-400 mt-1 flex-shrink-0" />
+                  <div className="space-y-1">
+                    <p className="font-semibold text-white">Thika Branch</p>
+                    <p>Wabera Street behind Zuri Centre, Thika</p>
+                    <div className="flex items-center mt-1">
+                      <Phone className="w-4 h-4 mr-2 text-blue-400" />
+                      <a href="tel:0700076696" className="hover:text-blue-400 transition-colors">0700 076 696</a>
+                    </div>
+                    <div className="flex items-center mt-1">
+                      <Mail className="w-4 h-4 mr-2 text-blue-400" />
+                      <a href="mailto:rdsthika@gmail.com" className="hover:text-blue-400 transition-colors break-all">rdsthika@gmail.com</a>
+                    </div>
+                  </div>
                 </div>
               </li>
             </ul>

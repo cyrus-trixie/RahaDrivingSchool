@@ -1,13 +1,10 @@
 // components/Navbar.tsx
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
 import { Menu, X, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import lottie from "lottie-web";
-import carAnimation from "../assets/lottie/car.json";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const lottieContainer = useRef(null);
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -21,36 +18,50 @@ const Navbar = () => {
     window.location.href = "tel:+254707808565";
   };
 
-  useEffect(() => {
-    if (lottieContainer.current) {
-      lottie.loadAnimation({
-        container: lottieContainer.current,
-        renderer: "svg",
-        loop: true,
-        autoplay: true,
-        animationData: carAnimation,
-      });
-    }
-  }, []);
-
   const sections = ["hero", "about", "courses", "gallery", "testimonials", "contact"];
 
   return (
     <nav className="fixed top-0 left-0 right-0 bg-white dark:bg-gray-950 shadow-sm z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
-          {/* Brand Title with Lottie Animation */}
+          {/* Brand Title */}
           <div className="flex-shrink-0">
-            <div className="flex items-center gap-3">
-              <div ref={lottieContainer} className="w-16 h-16" /> {/* Lottie enlarged */}
-              <div className="flex flex-col">
-                <h1 className="text-2xl font-extrabold tracking-tight text-gray-900 dark:text-white font-sans">
-                  Raha <span className="text-primary">Driving School</span>
-                </h1>
-                <span className="text-xs text-muted-foreground -mt-1">
-                  Road to Success
+            <div className="flex flex-col">
+              <h1 className="font-black italic tracking-wide text-gray-900 dark:text-white relative">
+                <span
+                  className="relative inline-block text-red-600 font-black italic text-3xl"
+                  style={{
+                    fontFamily: '"Comic Sans MS", "Chalkboard SE", "Bradley Hand", cursive, fantasy',
+                    textShadow: '3px 3px 0px #1e40af, 6px 6px 8px rgba(0,0,0,0.4)',
+                    WebkitTextStroke: '1px #dc2626',
+                    filter: 'drop-shadow(2px 2px 0px #1e40af)',
+                    transform: 'rotate(-2deg)',
+                    letterSpacing: '0.1em'
+                  }}
+                >
+                  Raha<span className="text-xl -ml-1">😊</span>
                 </span>
-              </div>
+                {" "}
+                <span 
+                  className="text-sm text-gray-800 dark:text-gray-200 font-bold italic tracking-wide"
+                  style={{
+                    fontFamily: '"Comic Sans MS", "Chalkboard SE", "Bradley Hand", cursive, fantasy',
+                    transform: 'rotate(1deg)',
+                    letterSpacing: '0.09em'
+                  }}
+                >
+                  DRIVING<sup className="text-xs font-normal text-gray-600 ml-1">786</sup> SCHOOL
+                </span>
+              </h1>
+              <span 
+                className="text-xs text-muted-foreground mt-1 italic font-mono tracking-wider"
+                style={{
+                  fontFamily: '"Comic Sans MS", "Chalkboard SE", "Bradley Hand", cursive, fantasy',
+                  transform: 'rotate(-1deg)'
+                }}
+              >
+                Road to Success
+              </span>
             </div>
           </div>
 

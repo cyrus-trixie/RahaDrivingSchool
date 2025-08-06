@@ -1,19 +1,20 @@
+// components/Contact.tsx
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Phone, MapPin, Clock, MessageCircle } from "lucide-react";
 
 const Contact = () => {
-  const openWhatsApp = () => {
-    window.open('https://wa.me/254707808565', '_blank');
+  const openWhatsApp = (phoneNumber: string) => {
+    window.open(`https://wa.me/${phoneNumber}`, '_blank');
   };
 
-  const openGoogleMaps = () => {
-    // A more specific Google Maps URL is better for direct user experience
-    window.open('https://maps.app.goo.gl/NakuruLocation', '_blank'); 
+  // Function to open Google Maps for a specific address
+  const openGoogleMapsAddress = (address: string) => {
+    window.open(`https://www.google.com/maps/search/?api=1&query=Raha+Driving+School+Thika{encodeURIComponent(address)}`, '_blank');
   };
 
-  const makeCall = () => {
-    window.location.href = 'tel:+254707808565';
+  const makeCall = (phoneNumber: string) => {
+    window.location.href = `tel:${phoneNumber}`;
   };
 
   return (
@@ -29,14 +30,14 @@ const Contact = () => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {/* Phone & Email */}
+          {/* Main Office Contact */}
           <Card className="shadow-lg hover:shadow-xl transition-shadow text-center p-6 bg-white dark:bg-gray-800 rounded-xl">
             <CardHeader className="p-0 mb-4">
               <Phone className="w-9 h-9 text-blue-600 dark:text-blue-400 mx-auto" />
             </CardHeader>
             <CardContent className="p-0">
               <CardTitle className="text-xl font-bold text-gray-800 dark:text-white mb-3">
-                Phone & Email
+                Main Office
               </CardTitle>
               <div className="space-y-2 text-sm">
                 <a href="tel:+254707808565" className="block text-blue-600 dark:text-blue-400 font-medium hover:underline transition-colors">
@@ -45,51 +46,64 @@ const Contact = () => {
                 <a href="mailto:Rahadrivingsch@gmail.com" className="block text-blue-600 dark:text-blue-400 font-medium hover:underline transition-colors break-all">
                   Rahadrivingsch@gmail.com
                 </a>
+                <p className="text-gray-600 dark:text-gray-400 mt-2">Pioneer Plaza, Nakuru</p>
               </div>
-            </CardContent>
-          </Card>
-
-          {/* WhatsApp */}
-          <Card className="shadow-lg hover:shadow-xl transition-shadow text-center p-6 bg-white dark:bg-gray-800 rounded-xl">
-            <CardHeader className="p-0 mb-4">
-              <MessageCircle className="w-9 h-9 text-green-600 dark:text-green-400 mx-auto" />
-            </CardHeader>
-            <CardContent className="p-0">
-              <CardTitle className="text-xl font-bold text-gray-800 dark:text-white mb-3">
-                WhatsApp
-              </CardTitle>
-              <p className="text-gray-600 dark:text-gray-400 mb-4 text-sm">
-                Chat with us instantly
-              </p>
-              <Button 
+              <Button
+                variant="outline"
                 size="sm"
-                onClick={openWhatsApp}
-                className="w-full bg-green-600 hover:bg-green-700 text-white"
+                onClick={() => openGoogleMapsAddress("Pioneer Plaza, Nakuru")}
+                className="w-full mt-4 border-blue-600 text-blue-600 hover:bg-blue-50 dark:border-blue-400 dark:text-blue-400 dark:hover:bg-blue-900"
               >
-                Message Us
+                View Map
               </Button>
             </CardContent>
           </Card>
 
-          {/* Location */}
+          {/* Nakuru Branch Contact */}
           <Card className="shadow-lg hover:shadow-xl transition-shadow text-center p-6 bg-white dark:bg-gray-800 rounded-xl">
             <CardHeader className="p-0 mb-4">
               <MapPin className="w-9 h-9 text-blue-600 dark:text-blue-400 mx-auto" />
             </CardHeader>
             <CardContent className="p-0">
               <CardTitle className="text-xl font-bold text-gray-800 dark:text-white mb-3">
-                Our Locations
+                Nakuru Branch
               </CardTitle>
-              <div className="text-sm text-gray-600 dark:text-gray-400">
-                <p className="font-semibold">Main Office:</p>
-                <p className="mb-2">Pioneer Plaza, Nakuru</p>
-                <p className="font-semibold">Branch:</p>
+              <div className="text-sm text-gray-600 dark:text-gray-400 mb-4">
                 <p>Olive Inn, Kiamunyi</p>
               </div>
-              <Button 
+              <Button
                 variant="outline"
                 size="sm"
-                onClick={openGoogleMaps}
+                onClick={() => openGoogleMapsAddress("Olive Inn, Kiamunyi, Nakuru")}
+                className="w-full mt-4 border-blue-600 text-blue-600 hover:bg-blue-50 dark:border-blue-400 dark:text-blue-400 dark:hover:bg-blue-900"
+              >
+                View Map
+              </Button>
+            </CardContent>
+          </Card>
+            
+          {/* Thika Branch Contact */}
+          <Card className="shadow-lg hover:shadow-xl transition-shadow text-center p-6 bg-white dark:bg-gray-800 rounded-xl">
+            <CardHeader className="p-0 mb-4">
+              <Phone className="w-9 h-9 text-blue-600 dark:text-blue-400 mx-auto" />
+            </CardHeader>
+            <CardContent className="p-0">
+              <CardTitle className="text-xl font-bold text-gray-800 dark:text-white mb-3">
+                Thika Branch
+              </CardTitle>
+              <div className="space-y-2 text-sm">
+                <a href="tel:0700076696" className="block text-blue-600 dark:text-blue-400 font-medium hover:underline transition-colors">
+                  0700 076 696
+                </a>
+                <a href="mailto:rdsthika@gmail.com" className="block text-blue-600 dark:text-blue-400 font-medium hover:underline transition-colors break-all">
+                  rdsthika@gmail.com
+                </a>
+                <p className="text-gray-600 dark:text-gray-400 mt-2">Wabera Street, behind Zuri Centre, Thika</p>
+              </div>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => openGoogleMapsAddress("Wabera Street, behind Zuri Centre, Thika")}
                 className="w-full mt-4 border-blue-600 text-blue-600 hover:bg-blue-50 dark:border-blue-400 dark:text-blue-400 dark:hover:bg-blue-900"
               >
                 View Map
@@ -124,22 +138,22 @@ const Contact = () => {
               Let’s Get You on the Road
             </h3>
             <p className="text-gray-600 dark:text-gray-400 mb-8 text-lg">
-              Our friendly team is here to guide you every step of the way. 
+              Our friendly team is here to guide you every step of the way.
               Choose the contact method that works for you and let’s get rolling!
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <Button 
-                size="lg" 
-                onClick={openWhatsApp}
+              <Button
+                size="lg"
+                onClick={() => openWhatsApp("254707808565")}
                 className="bg-green-600 hover:bg-green-700 text-white rounded-full"
               >
                 <MessageCircle className="w-5 h-5 mr-2" />
                 WhatsApp Us
               </Button>
-              <Button 
-                variant="outline" 
-                size="lg" 
-                onClick={makeCall}
+              <Button
+                variant="outline"
+                size="lg"
+                onClick={() => makeCall("+254707808565")}
                 className="text-blue-600 dark:text-blue-400 border-blue-600 dark:border-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900 rounded-full"
               >
                 <Phone className="w-5 h-5 mr-2" />

@@ -1,4 +1,5 @@
-import { useState } from "react";
+// components/EnrollmentForm.tsx
+import { useState, useEffect } from "react";
 import {
   Dialog,
   DialogContent,
@@ -24,6 +25,11 @@ interface EnrollmentFormProps {
   selectedCourse?: string;
 }
 
+const coursePrices: { [key: string]: number } = {
+  "full-course": 13500,
+  "short-course": 10000,
+};
+
 const EnrollmentForm = ({
   isOpen,
   onClose,
@@ -35,11 +41,27 @@ const EnrollmentForm = ({
     email: "",
     course: selectedCourse || "",
     preferredTime: "",
-    licenseClass: "", // This field remains from the previous update
+    licenseClass: "",
+    branch: "", // Added a new field for branch
   });
+  const [price, setPrice] = useState(0);
+
+  // Effect to update the form when a new course is pre-selected
+  useEffect(() => {
+    if (selectedCourse) {
+      setFormData((prev) => ({ ...prev, course: selectedCourse }));
+      setPrice(coursePrices[selectedCourse] || 0);
+    } else {
+      setFormData((prev) => ({ ...prev, course: "" }));
+      setPrice(0);
+    }
+  }, [selectedCourse]);
 
   const handleChange = (field: string, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
+    if (field === "course") {
+      setPrice(coursePrices[value] || 0);
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -56,6 +78,8 @@ const EnrollmentForm = ({
           course: formData.course,
           preferred_time: formData.preferredTime,
           license_class: formData.licenseClass,
+          branch: formData.branch, // Added the new branch field
+          price: price.toLocaleString('en-KE', { style: 'currency', currency: 'KSh' }), // Added the price
           time: new Date().toLocaleString(),
         },
         import.meta.env.VITE_EMAILJS_PUBLIC_KEY!
@@ -78,7 +102,9 @@ const EnrollmentForm = ({
         course: "",
         preferredTime: "",
         licenseClass: "",
+        branch: "",
       });
+      setPrice(0);
     } catch (error) {
       console.error("EmailJS error:", error);
       toast.error("Something went wrong. Try again later.");
@@ -151,9 +177,45 @@ const EnrollmentForm = ({
                 <SelectValue placeholder="Select course" />
               </SelectTrigger>
               <SelectContent>
-                {/* The "Vehicle & Motorcycle (A2)" item has been removed */}
                 <SelectItem value="full-course">Full Course (Manual)</SelectItem>
                 <SelectItem value="short-course">Short Course</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div className="grid gap-1.5">
+            <Label htmlFor="licenseClass" className="text-sm text-zinc-600">
+              Category of Class
+            </Label>
+            <Select
+              value={formData.licenseClass}
+              onValueChange={(val) => handleChange("licenseClass", val)}
+            >
+              <SelectTrigger className="focus-visible:ring-2 focus-visible:ring-blue-600">
+                <SelectValue placeholder="Select license class" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="B1-automatic">B1 Automatic Car</SelectItem>
+                <SelectItem value="B2-manual">B2 Manual Car</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div className="grid gap-1.5">
+            <Label htmlFor="branch" className="text-sm text-zinc-600">
+              Choose Branch
+            </Label>
+            <Select
+              value={formData.branch}
+              onValueChange={(val) => handleChange("branch", val)}
+            >
+              <SelectTrigger className="focus-visible:ring-2 focus-visible:ring-blue-600">
+                <SelectValue placeholder="Select a branch" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="thika">Wabere Street behind Zuri Centre, Thika</SelectItem>
+                <SelectItem value="nakuru-main">Main Office: Pioneer Plaza, Nakuru</SelectItem>
+                <SelectItem value="nakuru-branch">Branch: Olive Inn, Kiamunyi</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -177,23 +239,13 @@ const EnrollmentForm = ({
             </Select>
           </div>
 
-          <div className="grid gap-1.5">
-            <Label htmlFor="licenseClass" className="text-sm text-zinc-600">
-              Category of Class
-            </Label>
-            <Select
-              value={formData.licenseClass}
-              onValueChange={(val) => handleChange("licenseClass", val)}
-            >
-              <SelectTrigger className="focus-visible:ring-2 focus-visible:ring-blue-600">
-                <SelectValue placeholder="Select license class" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="B1-automatic">B1 Automatic Car</SelectItem>
-                <SelectItem value="B2-manual">B2 Manual Car</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
+          {price > 0 && (
+            <div className="bg-gray-100 dark:bg-gray-800 p-3 rounded-md">
+              <p className="text-sm font-semibold text-gray-900 dark:text-gray-100">
+                Price: <span className="text-blue-700">Ksh {price.toLocaleString()}</span>
+              </p>
+            </div>
+          )}
 
           <div className="flex items-center justify-between pt-4 gap-4">
             <Button
