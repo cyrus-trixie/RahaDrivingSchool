@@ -1,95 +1,110 @@
 // components/About.tsx
 import { motion } from "framer-motion";
 import studentsImage from "@/assets/raha.webp";
-import { CheckCircle } from "lucide-react";
+import { CheckCircle, Shield, Car, DollarSign } from "lucide-react";
+
+const FeatureCard = ({ icon, title, description }) => (
+  <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.4, ease: "easeOut" }}
+    viewport={{ once: true }}
+    className="bg-white dark:bg-gray-800 p-5 rounded-xl shadow-md flex flex-col items-start text-left sm:items-center sm:text-center"
+  >
+    <div className="p-2 bg-primary/10 rounded-full mb-3">{icon}</div>
+    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">{title}</h3>
+    <p className="text-gray-600 dark:text-gray-400 text-sm">{description}</p>
+  </motion.div>
+);
 
 const About = () => {
+  const benefits = [
+    {
+      icon: <CheckCircle className="w-6 h-6 text-primary" />,
+      title: "Trained Instructors",
+      description: "Our team consists of highly trained and experienced instructors.",
+    },
+    {
+      icon: <Shield className="w-6 h-6 text-primary" />,
+      title: "Licensed & Insured",
+      description: "We are a fully licensed and insured driving school.",
+    },
+    {
+      icon: <Car className="w-6 h-6 text-primary" />,
+      title: "Modern Vehicles",
+      description: "Learn on modern and safe vehicles with dual controls.",
+    },
+    {
+      icon: <DollarSign className="w-6 h-6 text-primary" />,
+      title: "Friendly Costs",
+      description: "We offer affordable rates without compromising on quality.",
+    },
+  ];
+
   return (
     <section id="about" className="py-20 bg-gray-50 dark:bg-gray-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          {/* Left: Text Content and Stats */}
+
+        {/* Top Section: Image + Intro */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true }}
+          className="flex flex-col-reverse lg:flex-row items-center gap-12"
+        >
+          {/* Text Content */}
+          <div className="w-full lg:w-1/2">
+            <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-white mb-4">
+              Who is RAHA Driving School?
+            </h2>
+            <p className="text-base text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
+              RAHA Driving School was incorporated under the Companies Act (CAP 480) in Nairobi, Kenya. We aim to be a reputable, sustainable, and desirable driving school, providing a rewarding experience and high-quality, professional driving skills to our students.
+            </p>
+
+            <div className="flex flex-wrap gap-2 mt-4">
+              {["Integrity", "Honesty", "Trust", "Quality"].map((value, idx) => (
+                <span key={idx} className="px-3 py-1 text-sm rounded-full bg-primary/10 text-primary font-medium">
+                  {value}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* Image */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
+            className="w-full lg:w-1/2"
           >
-            <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white mb-6">
-              About Our Driving School
-            </h2>
-            <p className="text-lg text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
-              As an **NTSA-certified** driving school with over 15 years of experience, we're dedicated to
-              providing top-tier training. We offer the most affordable rates in town without
-              compromising on quality. Our professional instructors provide comprehensive,
-              personalized training to help you become a **safe, confident, and skilled driver**.
-            </p>
-            <div className="flex items-center text-primary font-semibold mb-8">
-              <CheckCircle className="w-5 h-5 mr-2" />
-              NTSA Certified for Your Peace of Mind
-            </div>
-            
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              viewport={{ once: true }}
-              className="grid grid-cols-3 gap-6"
-            >
-              <div className="text-center">
-                <motion.div 
-                  initial={{ scale: 0 }}
-                  whileInView={{ scale: 1 }}
-                  transition={{ duration: 0.5, delay: 0.3 }}
-                  viewport={{ once: true }}
-                  className="text-4xl font-bold text-primary mb-1"
-                >
-                  5000+
-                </motion.div>
-                <div className="text-sm font-medium text-gray-500 dark:text-gray-400">Students Trained</div>
-              </div>
-              <div className="text-center">
-                <motion.div 
-                  initial={{ scale: 0 }}
-                  whileInView={{ scale: 1 }}
-                  transition={{ duration: 0.5, delay: 0.4 }}
-                  viewport={{ once: true }}
-                  className="text-4xl font-bold text-primary mb-1"
-                >
-                  15+
-                </motion.div>
-                <div className="text-sm font-medium text-gray-500 dark:text-gray-400">Years of Experience</div>
-              </div>
-              <div className="text-center">
-                <motion.div 
-                  initial={{ scale: 0 }}
-                  whileInView={{ scale: 1 }}
-                  transition={{ duration: 0.5, delay: 0.5 }}
-                  viewport={{ once: true }}
-                  className="text-4xl font-bold text-primary mb-1"
-                >
-                  98%
-                </motion.div>
-                <div className="text-sm font-medium text-gray-500 dark:text-gray-400">First-Time Pass Rate</div>
-              </div>
-            </motion.div>
-          </motion.div>
-
-          {/* Right: Image */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            viewport={{ once: true }}
-            className="flex justify-center"
-          >
-            <img 
-              src={studentsImage} 
-              alt="Driving students with instructor" 
-              className="rounded-xl shadow-2xl w-full max-w-lg object-cover transition-transform duration-300 hover:scale-105"
+            <img
+              src={studentsImage}
+              alt="Driving students with instructor"
+              className="rounded-xl shadow-2xl w-full object-cover"
             />
           </motion.div>
-        </div>
+        </motion.div>
+
+        {/* Why Choose Us */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          viewport={{ once: true }}
+          className="mt-20"
+        >
+          <h3 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-6 text-center">
+            Why Choose Us?
+          </h3>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {benefits.map((benefit, index) => (
+              <FeatureCard key={index} {...benefit} />
+            ))}
+          </div>
+        </motion.div>
       </div>
     </section>
   );

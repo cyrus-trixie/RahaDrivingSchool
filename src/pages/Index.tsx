@@ -2,39 +2,41 @@ import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
+import WhatWeOffer from "@/components/WhatWeOffer"; // ⬅️ Import the new component
 import Courses from "@/components/Courses";
 import Gallery from "@/components/Gallery";
 import Testimonials from "@/components/Testimonials";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
-import EnrollmentForm from "@/components/EnrollmentForm"; // ⬅️ import the form
+import EnrollmentForm from "@/components/EnrollmentForm";
 
 const Index = () => {
-  const [enrollmentOpen, setEnrollmentOpen] = useState(false);
-  const [selectedCourse, setSelectedCourse] = useState("");
+  const [enrollmentOpen, setEnrollmentOpen] = useState(false);
+  const [selectedCourse, setSelectedCourse] = useState("");
 
-  const handleEnroll = (courseId = "") => {
-    setSelectedCourse(courseId);
-    setEnrollmentOpen(true);
-  };
+  const handleEnroll = (courseId = "") => {
+    setSelectedCourse(courseId);
+    setEnrollmentOpen(true);
+  };
 
-  return (
-    <div className="min-h-screen">
-      <Navbar />
-      <Hero onEnroll={handleEnroll} /> {/* 👈 pass the function as prop */}
-      <About />
-      <Courses onEnroll={handleEnroll} /> {/* 👈 same here */}
-      <Gallery />
-      <Testimonials />
-      <Contact />
-      <Footer />
-      <EnrollmentForm
-        isOpen={enrollmentOpen}
-        onClose={() => setEnrollmentOpen(false)}
-        selectedCourse={selectedCourse}
-      />
-    </div>
-  );
+  return (
+    <div className="min-h-screen">
+      <Navbar />
+      <Hero onEnroll={handleEnroll} />
+      <About />
+      <WhatWeOffer /> {/* ⬅️ Add the new component here */}
+      <Courses onEnroll={handleEnroll} />
+      <Gallery />
+      <Testimonials />
+      <Contact />
+      <Footer />
+      <EnrollmentForm
+        isOpen={enrollmentOpen}
+        onClose={() => setEnrollmentOpen(false)}
+        selectedCourse={selectedCourse}
+      />
+    </div>
+  );
 };
 
 export default Index;

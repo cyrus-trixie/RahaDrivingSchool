@@ -1,44 +1,47 @@
+// components/Gallery.tsx
 import { motion } from "framer-motion";
-import classroomImage from "@/assets/classroom-session.jpg";
+import { useState } from "react";
+import { X } from "lucide-react";
+
+// Image imports
 import carsImage from "@/assets/car2.jpg";
-import instructorTeaching from "@/assets/table.jpg";
 import parallelParking from "@/assets/raha1.webp";
 import highwayDriving from "@/assets/car1.jpg";
 import nightDriving from "@/assets/car.jpg";
+import image20 from "@/assets/images/5.jpg";
+import image23 from "@/assets/images/30.jpg";
+import image24 from "@/assets/images/32.jpg";
+import image25 from "@/assets/images/25.jpg";
+import image26 from "@/assets/images/26.jpg";
+import image27 from "@/assets/images/27.jpg";
+import image28 from "@/assets/images/28.jpg";
+import image29 from "@/assets/images/29.jpg";
 
 const Gallery = () => {
+  const [selectedImage, setSelectedImage] = useState(null);
+
   const images = [
-    {
-      src: instructorTeaching,
-      alt: "Professional driving instruction",
-      title: "Expert Instructors"
-    },
-    {
-      src: parallelParking,
-      alt: "Parallel parking practice",
-      title: "Parking Skills"
-    },
-    {
-      src: highwayDriving,
-      alt: "Highway driving lessons",
-      title: "Highway Training"
-    },
-    {
-      src: nightDriving,
-      alt: "Day driving practice",
-      title: "Day Lessons"
-    },
-    {
-      src: classroomImage,
-      alt: "Theory classes",
-      title: "Theory Sessions"
-    },
-    {
-      src: carsImage,
-      alt: "Modern vehicle fleet",
-      title: "Modern Fleet"
-    }
+    { src: parallelParking, alt: "Parallel parking practice" },
+    { src: highwayDriving, alt: "Highway driving lessons" },
+    { src: nightDriving, alt: "Night driving practice" },
+    { src: carsImage, alt: "Modern vehicle fleet" },
+    { src: image20, alt: "A driving instructor demonstrating a concept on a blackboard to a group of students in a classroom setting." },
+    { src: image23, alt: "A driving student practicing reversing maneuvers in a controlled environment." },
+    { src: image24, alt: "A student learning to check their mirrors and blind spots during a lesson." },
+    { src: image25, alt: "An instructor giving one-on-one feedback to a student using a whiteboard." },
+    { src: image26, alt: "A close-up of a student's hands on the steering wheel, learning proper grip." },
+    { src: image27, alt: "A student and instructor discussing a model town board to understand traffic rules." },
+    { src: image28, alt: "A view of the driving school's classroom with students engaged in a theory lesson." },
+    { src: image29, alt: "A wide shot of a driving student and instructor practicing maneuvers in a spacious training area." },
   ];
+
+  const handleImageClick = (imageSrc) => {
+    setSelectedImage(imageSrc);
+  };
+
+  const closeLightbox = () => {
+    setSelectedImage(null);
+  };
 
   return (
     <section id="gallery" className="py-20 bg-gray-50 dark:bg-gray-900">
@@ -51,14 +54,14 @@ const Gallery = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white mb-4">
-            Our Training Gallery
+            Our Fleet
           </h2>
           <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            See our state-of-the-art facilities and dedicated instructors in action. We are committed to providing a hands-on learning experience for every student.
+             See our modern fleet of training vehicles that are meticulously maintained for your safety and comfort.
           </p>
         </motion.div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {images.map((image, index) => (
             <motion.div
               key={index}
@@ -68,21 +71,41 @@ const Gallery = () => {
               viewport={{ once: true, amount: 0.5 }}
               whileHover={{ scale: 1.03, zIndex: 10 }}
               className="relative group overflow-hidden rounded-xl shadow-lg cursor-pointer"
+              onClick={() => handleImageClick(image.src)}
             >
               <img 
                 src={image.src} 
                 alt={image.alt}
                 className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <h3 className="text-xl font-bold text-white leading-tight">
-                  {image.title}
-                </h3>
-              </div>
             </motion.div>
           ))}
         </div>
       </div>
+      
+      {/* Lightbox Modal */}
+      {selectedImage && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4"
+          onClick={closeLightbox}
+        >
+          <button 
+            className="absolute top-4 right-4 text-white hover:text-gray-300 transition"
+            onClick={closeLightbox}
+            aria-label="Close image"
+          >
+            <X size={32} />
+          </button>
+          <img 
+            src={selectedImage} 
+            alt="Enlarged gallery image"
+            className="max-w-full max-h-full rounded-xl shadow-2xl"
+          />
+        </motion.div>
+      )}
     </section>
   );
 };
