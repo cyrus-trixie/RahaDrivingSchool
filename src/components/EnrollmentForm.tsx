@@ -1,4 +1,3 @@
-// components/EnrollmentForm.tsx
 import { useState, useEffect } from "react";
 import {
   Dialog,
@@ -28,13 +27,13 @@ interface EnrollmentFormProps {
 const coursePrices: { [key: string]: number } = {
   "full-course": 13500,
   "short-course": 10000,
+  "class-a": 8200,
+  "class-b": 13700,
+  "class-c": 15700,
+  "class-bc": 19200,
 };
 
-const EnrollmentForm = ({
-  isOpen,
-  onClose,
-  selectedCourse,
-}: EnrollmentFormProps) => {
+const EnrollmentForm = ({ isOpen, onClose, selectedCourse }: EnrollmentFormProps) => {
   const [formData, setFormData] = useState({
     fullName: "",
     phone: "",
@@ -42,11 +41,11 @@ const EnrollmentForm = ({
     course: selectedCourse || "",
     preferredTime: "",
     licenseClass: "",
-    branch: "", // Added a new field for branch
+    branch: "",
   });
+
   const [price, setPrice] = useState(0);
 
-  // Effect to update the form when a new course is pre-selected
   useEffect(() => {
     if (selectedCourse) {
       setFormData((prev) => ({ ...prev, course: selectedCourse }));
@@ -78,8 +77,8 @@ const EnrollmentForm = ({
           course: formData.course,
           preferred_time: formData.preferredTime,
           license_class: formData.licenseClass,
-          branch: formData.branch, // Added the new branch field
-          price: price.toLocaleString('en-KE', { style: 'currency', currency: 'KSh' }), // Added the price
+          branch: formData.branch,
+          price: price.toLocaleString("en-KE", { style: "currency", currency: "KSh" }),
           time: new Date().toLocaleString(),
         },
         import.meta.env.VITE_EMAILJS_PUBLIC_KEY!
@@ -113,32 +112,31 @@ const EnrollmentForm = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-md rounded-2xl bg-white p-6 sm:p-8 shadow-xl border border-zinc-200">
+      <DialogContent
+        className="w-full max-w-2xl rounded-2xl bg-white p-6 sm:p-8 shadow-xl border border-zinc-200 overflow-y-auto max-h-[90vh]"
+      >
         <DialogHeader>
-          <DialogTitle className="text-2xl font-bold text-blue-700">
-            Course Enrollment
+          <DialogTitle className="text-2xl font-bold text-blue-700 text-center">
+            Enroll in a Course
           </DialogTitle>
         </DialogHeader>
 
-        <form onSubmit={handleSubmit} className="space-y-5 text-zinc-800">
-          <div className="grid gap-1.5">
-            <Label htmlFor="fullName" className="text-sm text-zinc-600">
-              Full Name
-            </Label>
+        <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4 text-zinc-800">
+          {/* Full Name */}
+          <div className="grid gap-1.5 col-span-1">
+            <Label htmlFor="fullName">Full Name</Label>
             <Input
               id="fullName"
               value={formData.fullName}
               onChange={(e) => handleChange("fullName", e.target.value)}
               placeholder="e.g. John Doe"
               required
-              className="focus-visible:ring-2 focus-visible:ring-blue-600"
             />
           </div>
 
-          <div className="grid gap-1.5">
-            <Label htmlFor="phone" className="text-sm text-zinc-600">
-              Phone Number
-            </Label>
+          {/* Phone */}
+          <div className="grid gap-1.5 col-span-1">
+            <Label htmlFor="phone">Phone Number</Label>
             <Input
               id="phone"
               type="tel"
@@ -146,90 +144,77 @@ const EnrollmentForm = ({
               onChange={(e) => handleChange("phone", e.target.value)}
               placeholder="07XXXXXXXX"
               required
-              className="focus-visible:ring-2 focus-visible:ring-blue-600"
             />
           </div>
 
-          <div className="grid gap-1.5">
-            <Label htmlFor="email" className="text-sm text-zinc-600">
-              Email Address
-            </Label>
+          {/* Email */}
+          <div className="grid gap-1.5 col-span-1">
+            <Label htmlFor="email">Email</Label>
             <Input
               id="email"
               type="email"
               value={formData.email}
               onChange={(e) => handleChange("email", e.target.value)}
-              placeholder="example@email.com"
+              placeholder="you@example.com"
               required
-              className="focus-visible:ring-2 focus-visible:ring-blue-600"
             />
           </div>
 
-          <div className="grid gap-1.5">
-            <Label htmlFor="course" className="text-sm text-zinc-600">
-              Course Type
-            </Label>
-            <Select
-              value={formData.course}
-              onValueChange={(val) => handleChange("course", val)}
-            >
-              <SelectTrigger className="focus-visible:ring-2 focus-visible:ring-blue-600">
+          {/* Branch */}
+          <div className="grid gap-1.5 col-span-1">
+            <Label>Branch</Label>
+            <Select value={formData.branch} onValueChange={(val) => handleChange("branch", val)}>
+              <SelectTrigger>
+                <SelectValue placeholder="Choose Branch" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="thika">Thika Branch - Wabere St.</SelectItem>
+                <SelectItem value="nakuru-main">Nakuru Main - Pioneer Plaza</SelectItem>
+                <SelectItem value="nakuru-branch">Nakuru Branch - Olive Inn</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+
+          {/* Course */}
+          <div className="grid gap-1.5 col-span-1">
+            <Label>Course</Label>
+            <Select value={formData.course} onValueChange={(val) => handleChange("course", val)}>
+              <SelectTrigger>
                 <SelectValue placeholder="Select course" />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="full-course">Full Course (Manual)</SelectItem>
                 <SelectItem value="short-course">Short Course</SelectItem>
+                <SelectItem value="class-a">Class A - Motorbike</SelectItem>
+                <SelectItem value="class-b">Class B - Saloon Car</SelectItem>
+                <SelectItem value="class-c">Class C - Lorry</SelectItem>
+                <SelectItem value="class-bc">Class B & C Combined</SelectItem>
               </SelectContent>
             </Select>
           </div>
 
-          <div className="grid gap-1.5">
-            <Label htmlFor="licenseClass" className="text-sm text-zinc-600">
-              Category of Class
-            </Label>
-            <Select
-              value={formData.licenseClass}
-              onValueChange={(val) => handleChange("licenseClass", val)}
-            >
-              <SelectTrigger className="focus-visible:ring-2 focus-visible:ring-blue-600">
+          {/* License Category */}
+          <div className="grid gap-1.5 col-span-1">
+            <Label>License Class</Label>
+            <Select value={formData.licenseClass} onValueChange={(val) => handleChange("licenseClass", val)}>
+              <SelectTrigger>
                 <SelectValue placeholder="Select license class" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="B1-automatic">B1 Automatic Car</SelectItem>
-                <SelectItem value="B2-manual">B2 Manual Car</SelectItem>
+                <SelectItem value="A">Class A - Motorbike</SelectItem>
+                <SelectItem value="B1-automatic">B1 - Automatic Car</SelectItem>
+                <SelectItem value="B2-manual">B2 - Manual Car</SelectItem>
+                <SelectItem value="C">Class C - Heavy Vehicles</SelectItem>
               </SelectContent>
             </Select>
           </div>
 
-          <div className="grid gap-1.5">
-            <Label htmlFor="branch" className="text-sm text-zinc-600">
-              Choose Branch
-            </Label>
-            <Select
-              value={formData.branch}
-              onValueChange={(val) => handleChange("branch", val)}
-            >
-              <SelectTrigger className="focus-visible:ring-2 focus-visible:ring-blue-600">
-                <SelectValue placeholder="Select a branch" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="thika">Wabere Street behind Zuri Centre, Thika</SelectItem>
-                <SelectItem value="nakuru-main">Main Office: Pioneer Plaza, Nakuru</SelectItem>
-                <SelectItem value="nakuru-branch">Branch: Olive Inn, Kiamunyi</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-
-          <div className="grid gap-1.5">
-            <Label htmlFor="preferredTime" className="text-sm text-zinc-600">
-              Preferred Time
-            </Label>
-            <Select
-              value={formData.preferredTime}
-              onValueChange={(val) => handleChange("preferredTime", val)}
-            >
-              <SelectTrigger className="focus-visible:ring-2 focus-visible:ring-blue-600">
-                <SelectValue placeholder="Select time slot" />
+          {/* Preferred Time */}
+          <div className="grid gap-1.5 col-span-1">
+            <Label>Preferred Time</Label>
+            <Select value={formData.preferredTime} onValueChange={(val) => handleChange("preferredTime", val)}>
+              <SelectTrigger>
+                <SelectValue placeholder="Choose time slot" />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="morning">Morning (8AM - 12PM)</SelectItem>
@@ -239,28 +224,30 @@ const EnrollmentForm = ({
             </Select>
           </div>
 
+          {/* Price (Auto shown) */}
           {price > 0 && (
-            <div className="bg-gray-100 dark:bg-gray-800 p-3 rounded-md">
-              <p className="text-sm font-semibold text-gray-900 dark:text-gray-100">
-                Price: <span className="text-blue-700">Ksh {price.toLocaleString()}</span>
+            <div className="col-span-full bg-zinc-100 text-center py-3 rounded">
+              <p className="text-zinc-700 font-medium">
+                Total Price: <span className="text-blue-700 font-bold">KSh {price.toLocaleString()}</span>
               </p>
             </div>
           )}
 
-          <div className="flex items-center justify-between pt-4 gap-4">
+          {/* Submit / Cancel Buttons */}
+          <div className="col-span-full flex gap-4 justify-end pt-4">
             <Button
               type="button"
               variant="outline"
               onClick={onClose}
-              className="w-full border-zinc-300 hover:border-zinc-400"
+              className="w-1/2"
             >
               Cancel
             </Button>
             <Button
               type="submit"
-              className="w-full bg-blue-700 hover:bg-blue-800 text-white"
+              className="w-1/2 bg-blue-700 text-white hover:bg-blue-800"
             >
-              Submit Enrollment
+              Enroll Now
             </Button>
           </div>
         </form>
