@@ -43,14 +43,15 @@ const Navbar = () => {
                 </span>
                 {" "}
                 <span 
-                  className="text-sm text-gray-800 dark:text-gray-200 font-bold italic tracking-wide"
+                  className="relative text-sm text-gray-800 dark:text-gray-200 font-bold italic tracking-wide"
                   style={{
                     fontFamily: '"Comic Sans MS", "Chalkboard SE", "Bradley Hand", cursive, fantasy',
                     transform: 'rotate(1deg)',
                     letterSpacing: '0.09em'
                   }}
                 >
-                  DRIVING<sup className="text-xs font-normal text-gray-600 ml-1">786</sup> SCHOOL
+                  <span className="absolute top-[-0.6rem] **left-0** text-xs font-normal text-gray-600 font-mono tracking-wider">786</span>
+                  DRIVING SCHOOL
                 </span>
               </h1>
               <span 
