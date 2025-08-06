@@ -22,14 +22,18 @@ import lorryImage from "@/assets/images/lorry.png";
 const Courses = () => {
   const [branch, setBranch] = useState<"main" | "thika">("main");
   const [enrollmentOpen, setEnrollmentOpen] = useState(false);
-  const [selectedCourse, setSelectedCourse] = useState("");
+  const [selectedCourse, setSelectedCourse] = useState<string | null>(null);
 
   const coursesData = {
     main: [
       {
         id: "full-course",
         title: "Full Course (Manual)",
+        license_class: "B",
         price: "KSh 13,500",
+        tuition: 9500,
+        pdl: 1050,
+        testBooking: 3050,
         originalPrice: "KSh 17,000",
         duration: "4 weeks",
         image: manualCarImage,
@@ -47,7 +51,11 @@ const Courses = () => {
       {
         id: "refresher-course",
         title: "Short Course",
+        license_class: "B",
         price: "KSh 10,000",
+        tuition: 6500,
+        pdl: 1050,
+        testBooking: 3050,
         duration: "1-2 weeks",
         image: automaticCarImage,
         category: "Experienced Drivers",
@@ -65,7 +73,11 @@ const Courses = () => {
       {
         id: "class-a",
         title: "Class A: Motorbike & Tuk Tuk",
+        license_class: "A",
         price: "KSh 8,200",
+        tuition: 6500,
+        pdl: 1050,
+        testBooking: 650,
         duration: "Custom Duration",
         image: motobikeImage,
         category: "Thika Branch",
@@ -79,7 +91,11 @@ const Courses = () => {
       {
         id: "class-b",
         title: "Class B: Saloon Car (Manual & Auto)",
+        license_class: "B",
         price: "KSh 13,700",
+        tuition: 9500,
+        pdl: 1050,
+        testBooking: 3050,
         duration: "Custom Duration",
         image: manualCarImage,
         category: "Thika Branch",
@@ -92,7 +108,11 @@ const Courses = () => {
       {
         id: "class-c",
         title: "Class C: Lorry",
+        license_class: "C",
         price: "KSh 15,700",
+        tuition: 12500,
+        pdl: 1050,
+        testBooking: 2150,
         duration: "Custom Duration",
         image: lorryImage,
         category: "Thika Branch",
@@ -105,7 +125,11 @@ const Courses = () => {
       {
         id: "class-bc",
         title: "Class B & C Combined",
+        license_class: "B + C",
         price: "KSh 19,200",
+        tuition: 16500,
+        pdl: 1050,
+        testBooking: 2650,
         duration: "Custom Duration",
         image: automaticCarImage,
         category: "Thika Branch",
@@ -142,7 +166,6 @@ const Courses = () => {
           </p>
         </motion.div>
 
-        {/* Branch selector */}
         <div className="flex justify-center mb-8 space-x-4">
           <Button
             className={`${
@@ -166,7 +189,6 @@ const Courses = () => {
           </Button>
         </div>
 
-        {/* Grid for course cards */}
         <div className="grid md:grid-cols-2 gap-8 justify-center">
           {courses.map((course, index) => (
             <motion.div
@@ -196,7 +218,25 @@ const Courses = () => {
                   <CardDescription className="text-gray-500 dark:text-gray-400 font-semibold mt-1">
                     {course.duration}
                   </CardDescription>
-                  <div className="mt-4">
+                  <div className="mt-4 text-left space-y-1">
+                    <p className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                      Tuition Fee:{" "}
+                      <span className="font-bold text-gray-900 dark:text-white">
+                        KSh {course.tuition.toLocaleString()}
+                      </span>
+                    </p>
+                    <p className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                      PDL:{" "}
+                      <span className="font-bold text-gray-900 dark:text-white">
+                        KSh {course.pdl.toLocaleString()}
+                      </span>
+                    </p>
+                    <p className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                      Test Booking:{" "}
+                      <span className="font-bold text-gray-900 dark:text-white">
+                        KSh {course.testBooking.toLocaleString()}
+                      </span>
+                    </p>
                     {course.originalPrice && (
                       <div className="text-sm text-gray-400 dark:text-gray-500 line-through">
                         {course.originalPrice}
@@ -206,7 +246,7 @@ const Courses = () => {
                       {course.price}
                     </div>
                     <p className="mt-2 text-sm font-semibold text-gray-600 dark:text-gray-300">
-                      Or pay KSh 5,000 deposit
+                      License Class: {course.license_class}
                     </p>
                   </div>
                 </CardHeader>
