@@ -1,14 +1,12 @@
 // components/OurFleet.tsx
 import { motion } from "framer-motion";
-import studentsImage from "@/assets/raha.webp"; // Example: A branded car image
-import car1Image from "@/assets/car1.jpg";     // Example: Another car image
-import car2Image from "@/assets/car2.jpg";     // Example: Another car image
-import carImage from "@/assets/car.jpg";       // Example: Another car image
-import raha1Image from "@/assets/raha1.webp";   // Example: Another branded car image
+import studentsImage from "@/assets/raha.webp";
+import car1Image from "@/assets/car1.jpg";
+import car2Image from "@/assets/car2.jpg";
+import carImage from "@/assets/car.jpg";
+import raha1Image from "@/assets/raha1.webp";
 
 const OurFleet = () => {
-  // Define the images for your fleet.
-  // Replace these with your actual car images for the best representation.
   const fleetImages = [
     {
       src: studentsImage,
@@ -38,7 +36,7 @@ const OurFleet = () => {
   ];
 
   return (
-    <section id="our-fleet" className="py-20 bg-gray-50 dark:bg-gray-900">
+    <section id="our-fleet" className="py-20 bg-[#121212]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <motion.div 
@@ -48,14 +46,14 @@ const OurFleet = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white mb-4">
+          <h2 className="text-4xl md:text-5xl font-extrabold text-[#F5F5F5] mb-4">
             Our Fleet
           </h2>
-          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+          <p className="text-lg text-[#BBBBBB] max-w-2xl mx-auto">
             Discover our diverse and meticulously maintained fleet of modern vehicles. Each car is equipped with dual controls and is regularly serviced to ensure your safety and provide the optimal learning environment.
           </p>
         </motion.div>
-        
+
         {/* Image Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {fleetImages.map((image, index) => (
@@ -66,7 +64,7 @@ const OurFleet = () => {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true, amount: 0.5 }}
               whileHover={{ scale: 1.03, zIndex: 10 }}
-              className="relative group overflow-hidden rounded-xl shadow-lg cursor-pointer"
+              className="relative group overflow-hidden rounded-xl shadow-xl cursor-pointer border border-[#2E2E2E] hover:border-[#00FF84]"
             >
               <img 
                 src={image.src} 
@@ -75,7 +73,7 @@ const OurFleet = () => {
               />
               {/* Overlay with title on hover */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <h3 className="text-xl font-bold text-white leading-tight">
+                <h3 className="text-xl font-bold text-[#F5F5F5] leading-tight">
                   {image.title}
                 </h3>
               </div>

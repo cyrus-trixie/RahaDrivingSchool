@@ -44,7 +44,7 @@ const Gallery = () => {
   };
 
   return (
-    <section id="gallery" className="py-20 bg-gray-50 dark:bg-gray-900">
+    <section id="gallery" className="py-20 bg-[#121212]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
@@ -53,14 +53,14 @@ const Gallery = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white mb-4">
+          <h2 className="text-4xl md:text-5xl font-extrabold text-[#F5F5F5] mb-4">
             Our Fleet
           </h2>
-          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-             See our modern fleet of training vehicles that are meticulously maintained for your safety and comfort.
+          <p className="text-lg text-[#BBBBBB] max-w-2xl mx-auto">
+            See our modern fleet of training vehicles that are meticulously maintained for your safety and comfort.
           </p>
         </motion.div>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {images.map((image, index) => (
             <motion.div
@@ -70,7 +70,7 @@ const Gallery = () => {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true, amount: 0.5 }}
               whileHover={{ scale: 1.03, zIndex: 10 }}
-              className="relative group overflow-hidden rounded-xl shadow-lg cursor-pointer"
+              className="relative group overflow-hidden rounded-xl shadow-xl cursor-pointer border border-[#2E2E2E] hover:border-[#00FF84]"
               onClick={() => handleImageClick(image.src)}
             >
               <img 
@@ -82,7 +82,7 @@ const Gallery = () => {
           ))}
         </div>
       </div>
-      
+
       {/* Lightbox Modal */}
       {selectedImage && (
         <motion.div
@@ -93,7 +93,7 @@ const Gallery = () => {
           onClick={closeLightbox}
         >
           <button 
-            className="absolute top-4 right-4 text-white hover:text-gray-300 transition"
+            className="absolute top-4 right-4 text-white hover:text-[#BBBBBB] transition"
             onClick={closeLightbox}
             aria-label="Close image"
           >
@@ -102,7 +102,7 @@ const Gallery = () => {
           <img 
             src={selectedImage} 
             alt="Enlarged gallery image"
-            className="max-w-full max-h-full rounded-xl shadow-2xl"
+            className="max-w-full max-h-full rounded-xl shadow-2xl border-4 border-[#00FF84]"
           />
         </motion.div>
       )}
