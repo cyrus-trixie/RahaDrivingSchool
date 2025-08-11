@@ -11,40 +11,104 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
-import EnrollmentForm from "./EnrollmentForm";
 
+// Assuming EnrollmentForm and images are available at these paths
+import EnrollmentForm from "./EnrollmentForm";
 import manualCarImage from "@/assets/raha2.webp";
 import motobikeImage from "@/assets/images/moto.jpg";
 import automaticCarImage from "@/assets/raha1.webp";
 import lorryImage from "@/assets/images/lorry.png";
 
 const Courses = () => {
-  const [branch, setBranch] = useState<"main" | "thika">("main");
+  // State to manage the active branch, enrollment form visibility, and selected course
+  const [branch, setBranch] = useState<"nakuru-main" | "thika" | "kaimunyi">("nakuru-main");
   const [enrollmentOpen, setEnrollmentOpen] = useState(false);
   const [selectedCourse, setSelectedCourse] = useState<string | null>(null);
 
+  // Data for all courses, organized by branch
   const coursesData = {
-    main: [
+    "nakuru-main": [
       {
-        id: "full-course",
-        title: "Full Course (Manual)",
+        id: "full-course-b",
+        title: "Class B (18 yrs)",
         license_class: "B",
-        price: "KSh 13,500",
-        tuition: 11800,
+        price: "KSh 13,000",
+        tuition: 10500,
         pdl: 650,
         testBooking: 1050,
-        originalPrice: "KSh 17,000",
+        interim: 800,
+        deposit: 5000,
         duration: "4 weeks",
         image: manualCarImage,
-        category: "Beginner Driver",
+        category: "Nakuru Town Main Branch",
         features: [
-          "🔥 August Time Offer",
           "PDL & Test Booking Included",
-          "Comprehensive Practical Lessons",
+          "20 Practical Lessons",
+          "20 Theory Lessons",
           "Highway & Town Driving",
           "In-depth Theory Classes",
           "Flexible Payment Plan",
           "Certified Instructors",
+        ],
+      },
+      {
+        id: "full-course-c1",
+        title: "Class C1 (22 yrs)",
+        license_class: "C1",
+        price: "KSh 16,000",
+        tuition: 13900,
+        pdl: 650,
+        testBooking: 650,
+        interim: 800,
+        deposit: 5000,
+        duration: "Custom Duration",
+        image: lorryImage,
+        category: "Nakuru Town Main Branch",
+        features: [
+          "PDL & Test Booking Included",
+          "20 Practical Lessons",
+          "20 Theory Lessons",
+          "Hands-on Heavy Vehicle Lessons",
+        ],
+      },
+      {
+        id: "full-course-d1",
+        title: "Class D1 (22 yrs)",
+        license_class: "D1",
+        price: "KSh 12,000",
+        tuition: 9900,
+        pdl: 650,
+        testBooking: 650,
+        interim: 800,
+        deposit: 5000,
+        duration: "Custom Duration",
+        image: automaticCarImage, // Placeholder image
+        category: "Nakuru Town Main Branch",
+        features: [
+          "PDL & Test Booking Included",
+          "20 Practical Lessons",
+          "10 Theory Lessons",
+          "Professional Driving Training",
+        ],
+      },
+      {
+        id: "full-course-a2",
+        title: "Class A2 (18 yrs)",
+        license_class: "A2",
+        price: "KSh 6,000",
+        tuition: 3900,
+        pdl: 650,
+        testBooking: 650,
+        interim: 800,
+        deposit: 5000,
+        duration: "Custom Duration",
+        image: motobikeImage,
+        category: "Nakuru Town Main Branch",
+        features: [
+          "PDL & Test Booking Included",
+          "20 Practical Lessons",
+          "10 Theory Lessons",
+          "Motorbike Lessons",
         ],
       },
       {
@@ -55,9 +119,11 @@ const Courses = () => {
         tuition: 8300,
         pdl: 650,
         testBooking: 1050,
+        interim: 0,
+        deposit: 5000,
         duration: "1-2 weeks",
         image: automaticCarImage,
-        category: "Experienced Drivers",
+        category: "Nakuru Town Main Branch",
         features: [
           "PDL & Test Booking Included",
           "Ideal for licensed drivers",
@@ -68,7 +134,7 @@ const Courses = () => {
         ],
       },
     ],
-    thika: [
+    "thika": [
       {
         id: "class-a",
         title: "Class A: Motorbike & Tuk Tuk",
@@ -77,6 +143,8 @@ const Courses = () => {
         tuition: 6500,
         pdl: 650,
         testBooking: 1050,
+        interim: 0,
+        deposit: 5000,
         duration: "Custom Duration",
         image: motobikeImage,
         category: "Thika Branch",
@@ -95,6 +163,8 @@ const Courses = () => {
         tuition: 12000,
         pdl: 650,
         testBooking: 1050,
+        interim: 0,
+        deposit: 5000,
         duration: "Custom Duration",
         image: manualCarImage,
         category: "Thika Branch",
@@ -112,6 +182,8 @@ const Courses = () => {
         tuition: 14000,
         pdl: 650,
         testBooking: 1050,
+        interim: 0,
+        deposit: 5000,
         duration: "Custom Duration",
         image: lorryImage,
         category: "Thika Branch",
@@ -129,12 +201,39 @@ const Courses = () => {
         tuition: 17500,
         pdl: 650,
         testBooking: 1050,
+        interim: 0,
+        deposit: 5000,
         duration: "Custom Duration",
         image: automaticCarImage,
         category: "Thika Branch",
         features: [
           "Comprehensive Package for Both B & C",
           "PDL & Test Booking Included",
+        ],
+      },
+    ],
+    "kaimunyi": [
+      // Only one course is now available for the Kaimunyi branch as requested
+      {
+        id: "kaimunyi-category-b",
+        title: "Category B, B1, B2, B3",
+        license_class: "B, B1, B2, B3",
+        price: "KSh 15,000",
+        tuition: 13300,
+        pdl: 650,
+        testBooking: 1050,
+        interim: 0,
+        deposit: 5000,
+        duration: "Custom Duration",
+        image: manualCarImage, // Using a manual car image for the driving course
+        category: "Kaimunyi Branch",
+        features: [
+          "PDL: KSh 650",
+          "Test Booking: KSh 1,050",
+          "Tuition Fee: KSh 13,300",
+          "Comprehensive Training for B, B1, B2, B3",
+          "Flexible Payment Plan",
+          "Certified Instructors",
         ],
       },
     ],
@@ -165,32 +264,41 @@ const Courses = () => {
           </p>
         </motion.div>
 
-        <div className="flex justify-center mb-8 space-x-4">
+        <div className="flex justify-center mb-8 space-x-4 flex-wrap">
           <Button
             className={`${
-              branch === "main"
+              branch === "nakuru-main"
                 ? "bg-[#00FF84] text-black"
                 : "bg-[#2E2E2E] text-[#BBBBBB]"
-            } px-4 py-2 rounded-lg`}
-            onClick={() => setBranch("main")}
+            } px-4 py-2 rounded-lg m-2`}
+            onClick={() => setBranch("nakuru-main")}
           >
-            Main Branch
+            Nakuru Town Main Branch
           </Button>
           <Button
             className={`${
               branch === "thika"
                 ? "bg-[#00FF84] text-black"
                 : "bg-[#2E2E2E] text-[#BBBBBB]"
-            } px-4 py-2 rounded-lg`}
+            } px-4 py-2 rounded-lg m-2`}
             onClick={() => setBranch("thika")}
           >
             Thika Branch
           </Button>
+          <Button
+            className={`${
+              branch === "kaimunyi"
+                ? "bg-[#00FF84] text-black"
+                : "bg-[#2E2E2E] text-[#BBBBBB]"
+            } px-4 py-2 rounded-lg m-2`}
+            onClick={() => setBranch("kaimunyi")}
+          >
+            Kaimunyi Branch
+          </Button>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8 justify-center">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 justify-center">
           {courses.map((course, index) => {
-            const ntsaTotal = course.pdl + course.testBooking;
             return (
               <motion.div
                 key={course.id}
@@ -201,8 +309,8 @@ const Courses = () => {
                 whileHover={{ y: -5 }}
                 className="max-w-lg mx-auto w-full"
               >
-                <Card className="shadow-lg overflow-hidden h-full bg-[#2E2E2E] border-2 border-transparent hover:border-[#00FF84] flex flex-col">
-                  <div className="aspect-video relative">
+                <Card className="shadow-lg overflow-hidden h-full bg-[#2E2E2E] border-2 border-transparent hover:border-[#00FF84] flex flex-col justify-between">
+                  <div className="relative h-48">
                     <img
                       src={course.image}
                       alt={course.title}
@@ -224,11 +332,14 @@ const Courses = () => {
                         Tuition Fee: <span className="font-bold text-[#F5F5F5]">KSh {course.tuition.toLocaleString()}</span>
                       </p>
                       <p className="text-sm font-medium text-[#BBBBBB]">
-                        NTSA Compulsory Fees: <span className="font-bold text-[#F5F5F5]">KSh {ntsaTotal.toLocaleString()}</span>
+                        NTSA Fees
                       </p>
                       <ul className="list-disc list-inside ml-4 space-y-0.5 text-xs text-[#888888]">
                         <li>PDL: KSh {course.pdl.toLocaleString()}</li>
                         <li>Test Booking: KSh {course.testBooking.toLocaleString()}</li>
+                        {course.interim > 0 && (
+                          <li>Interim: KSh {course.interim.toLocaleString()}</li>
+                        )}
                       </ul>
                       {course.originalPrice && (
                         <div className="text-sm text-[#666666] line-through">
@@ -256,6 +367,9 @@ const Courses = () => {
                       ))}
                     </ul>
                     <div className="mt-auto">
+                        <p className="text-sm font-medium text-[#BBBBBB] text-center mb-2">
+                         Deposit: <span className="font-bold text-[#F5F5F5]">KSh {course.deposit.toLocaleString()}</span>
+                        </p>
                       <Button
                         className="w-full hover:scale-105 transition-transform duration-200 bg-[#00FF84] hover:bg-[#00e876] text-black"
                         onClick={() => handleEnroll(course.id)}

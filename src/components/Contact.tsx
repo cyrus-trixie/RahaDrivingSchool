@@ -2,10 +2,13 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Phone, MapPin, Clock, MessageCircle } from "lucide-react";
+import { motion } from "framer-motion";
 
 const Contact = () => {
   const openWhatsApp = (phoneNumber: string) => {
-    window.open(`https://wa.me/${phoneNumber}`, "_blank");
+    // The phone number needs to be in international format without '+'
+    const formattedNumber = phoneNumber.replace(/\+/g, "");
+    window.open(`https://wa.me/${formattedNumber}`, "_blank");
   };
 
   const openGoogleMapsAddress = (address: string) => {
@@ -19,29 +22,35 @@ const Contact = () => {
   return (
     <section id="contact" className="py-20 bg-[#121212] text-[#BBBBBB]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
+        >
           <h2 className="text-4xl font-extrabold text-[#00FF84] mb-4">Get In Touch</h2>
           <p className="text-lg text-[#888888] max-w-2xl mx-auto">
             Ready to start your driving journey? Reach out today to book your first lesson or get more information.
           </p>
-        </div>
+        </motion.div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Office Cards */}
           {[
             {
-              title: "Main Office",
+              title: "Nakuru Main Office",
               icon: <Phone className="w-9 h-9 text-[#00FF84] mx-auto" />,
               phone: "+254707808565",
               email: "Rahadrivingsch@gmail.com",
               location: "Pioneer Plaza, Nakuru",
             },
             {
-              title: "Nakuru Branch",
+              title: "Kaimunyi Branch",
               icon: <MapPin className="w-9 h-9 text-[#00FF84] mx-auto" />,
-              phone: "",
-              email: "",
-              location: "Olive Inn, Kiamunyi",
+              phone: "+254707808565", // Assuming same phone for now, as no specific number was provided for this branch
+              email: "rdskamunyi@gmail.com",
+              location: "Olive Inn, Kaimunyi",
             },
             {
               title: "Thika Branch",
@@ -56,52 +65,61 @@ const Contact = () => {
               hours: true,
             },
           ].map((item, index) => (
-            <Card
+            <motion.div
               key={index}
-              className="shadow-lg hover:shadow-xl transition-shadow text-center p-6 bg-[#1A1A1A] rounded-xl"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              viewport={{ once: true }}
             >
-              <CardHeader className="p-0 mb-4">{item.icon}</CardHeader>
-              <CardContent className="p-0">
-                <CardTitle className="text-xl font-bold text-white mb-3">{item.title}</CardTitle>
-
-                {item.hours ? (
-                  <div className="text-sm text-[#888888] leading-relaxed">
-                    <p>Mon - Fri: 8AM - 6PM</p>
-                    <p>Sat: 8AM - 4PM</p>
-                    <p>Sun: Closed</p>
+              <Card
+                className="shadow-lg hover:shadow-xl transition-shadow text-center p-6 bg-[#1A1A1A] rounded-xl flex flex-col justify-between h-full"
+              >
+                <CardHeader className="p-0 mb-4">{item.icon}</CardHeader>
+                <CardContent className="p-0 flex-grow flex flex-col justify-between">
+                  <div>
+                    <CardTitle className="text-xl font-bold text-white mb-3">{item.title}</CardTitle>
+                    {item.hours ? (
+                      <div className="text-sm text-[#888888] leading-relaxed">
+                        <p>Mon - Fri: 8AM - 6PM</p>
+                        <p>Sat: 8AM - 4PM</p>
+                        <p>Sun: Closed</p>
+                      </div>
+                    ) : (
+                      <div className="space-y-2 text-sm">
+                        {item.phone && (
+                          <a
+                            href={`tel:${item.phone}`}
+                            className="block text-[#00FF84] font-medium hover:underline"
+                          >
+                            {item.phone}
+                          </a>
+                        )}
+                        {item.email && (
+                          <a
+                            href={`mailto:${item.email}`}
+                            className="block text-[#00FF84] font-medium hover:underline break-all"
+                          >
+                            {item.email}
+                          </a>
+                        )}
+                        <p className="text-[#888888] mt-2">{item.location}</p>
+                      </div>
+                    )}
                   </div>
-                ) : (
-                  <div className="space-y-2 text-sm">
-                    {item.phone && (
-                      <a
-                        href={`tel:${item.phone}`}
-                        className="block text-[#00FF84] font-medium hover:underline"
-                      >
-                        {item.phone}
-                      </a>
-                    )}
-                    {item.email && (
-                      <a
-                        href={`mailto:${item.email}`}
-                        className="block text-[#00FF84] font-medium hover:underline break-all"
-                      >
-                        {item.email}
-                      </a>
-                    )}
-                    <p className="text-[#888888] mt-2">{item.location}</p>
-
+                  {!item.hours && (
                     <Button
                       variant="outline"
                       size="sm"
                       onClick={() => openGoogleMapsAddress(item.location)}
-                      className="w-full mt-4 border-[#00FF84] text-[#00FF84] hover:bg-[#00FF8420]"
+                      className="w-full mt-4 border-[#00FF84] text-[#00FF84] hover:bg-[#00FF8420] rounded-full"
                     >
                       View Map
                     </Button>
-                  </div>
-                )}
-              </CardContent>
-            </Card>
+                  )}
+                </CardContent>
+              </Card>
+            </motion.div>
           ))}
         </div>
       </div>
@@ -120,7 +138,7 @@ const Contact = () => {
             <div className="flex flex-col sm:flex-row justify-center gap-4">
               <Button
                 size="lg"
-                onClick={() => openWhatsApp("254707808565")}
+                onClick={() => openWhatsApp("+254707808565")}
                 className="bg-[#00FF84] hover:bg-[#00e876] text-black rounded-full shadow-md hover:shadow-lg"
               >
                 <MessageCircle className="w-5 h-5 mr-2" />

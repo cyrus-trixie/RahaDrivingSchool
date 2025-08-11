@@ -1,5 +1,6 @@
 // components/Footer.tsx
 import { Phone, Mail, MapPin, Car } from "lucide-react";
+import { motion } from "framer-motion";
 
 const Footer = () => {
   return (
@@ -7,7 +8,13 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
           {/* Logo and Description */}
-          <div className="md:col-span-1">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="md:col-span-1"
+          >
             <div className="flex items-center gap-2 mb-4">
               <Car className="w-8 h-8 text-[#00FF84]" />
               <h3 className="text-2xl font-bold text-white">Raha Driving School</h3>
@@ -15,10 +22,16 @@ const Footer = () => {
             <p className="text-sm text-[#888888]">
               Your journey to safe, confident driving starts here. We provide professional instruction with certified instructors and modern vehicles.
             </p>
-          </div>
+          </motion.div>
 
           {/* Quick Links */}
-          <div className="md:col-span-1">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            viewport={{ once: true }}
+            className="md:col-span-1"
+          >
             <h4 className="text-lg font-semibold text-white mb-4">Quick Links</h4>
             <ul className="space-y-2 text-sm">
               {[
@@ -38,18 +51,24 @@ const Footer = () => {
                 </li>
               ))}
             </ul>
-          </div>
+          </motion.div>
 
           {/* Contact Info */}
-          <div className="md:col-span-1">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            viewport={{ once: true }}
+            className="md:col-span-1"
+          >
             <h4 className="text-lg font-semibold text-white mb-4">Contact Info</h4>
             <ul className="space-y-6 text-sm">
-              {/* Main Office */}
+              {/* Nakuru Main Office */}
               <li>
                 <div className="flex items-start">
                   <MapPin className="w-4 h-4 mr-3 text-[#00FF84] mt-1" />
                   <div>
-                    <p className="font-semibold text-white">Main Office</p>
+                    <p className="font-semibold text-white">Nakuru Main Office</p>
                     <p>Pioneer Plaza, Nakuru</p>
                     <div className="flex items-center mt-1">
                       <Phone className="w-4 h-4 mr-2 text-[#00FF84]" />
@@ -73,13 +92,31 @@ const Footer = () => {
                 </div>
               </li>
 
-              {/* Nakuru Branch */}
+              {/* Kaimunyi Branch */}
               <li>
                 <div className="flex items-start">
                   <MapPin className="w-4 h-4 mr-3 text-[#00FF84] mt-1" />
                   <div>
-                    <p className="font-semibold text-white">Nakuru Branch</p>
-                    <p>Olive Inn, Kiamunyi</p>
+                    <p className="font-semibold text-white">Kaimunyi Branch</p>
+                    <p>Olive Inn, Kaimunyi</p>
+                    <div className="flex items-center mt-1">
+                      <Phone className="w-4 h-4 mr-2 text-[#00FF84]" />
+                      <a
+                        href="tel:+254707808565"
+                        className="hover:text-[#00FF84] transition-colors"
+                      >
+                        +254 707 808565
+                      </a>
+                    </div>
+                    <div className="flex items-center mt-1">
+                      <Mail className="w-4 h-4 mr-2 text-[#00FF84]" />
+                      <a
+                        href="mailto:rdskamunyi@gmail.com"
+                        className="hover:text-[#00FF84] transition-colors break-all"
+                      >
+                        rdskamunyi@gmail.com
+                      </a>
+                    </div>
                   </div>
                 </div>
               </li>
@@ -113,17 +150,23 @@ const Footer = () => {
                 </div>
               </li>
             </ul>
-          </div>
+          </motion.div>
 
           {/* Business Hours */}
-          <div className="md:col-span-1">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            viewport={{ once: true }}
+            className="md:col-span-1"
+          >
             <h4 className="text-lg font-semibold text-white mb-4">Business Hours</h4>
             <ul className="space-y-2 text-sm text-[#888888]">
               <li>Mon - Fri: 8:00 AM - 6:00 PM</li>
               <li>Sat: 8:00 AM - 4:00 PM</li>
               <li>Sun: Closed</li>
             </ul>
-          </div>
+          </motion.div>
         </div>
 
         <div className="border-t border-[#2E2E2E] mt-12 pt-8 text-center text-sm text-[#555]">
