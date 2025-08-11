@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, useEffect } from "react";
 import {
   Dialog,
@@ -24,41 +26,57 @@ interface EnrollmentFormProps {
   selectedCourse?: string;
 }
 
-// A new, nested data structure to link courses to their respective branches.
-const branchCourses: {
-  [key: string]: {
-    id: string;
-    name: string;
-    price: number;
-    licenseClass: string;
-  }[];
-} = {
+// Updated data structure to match the main Courses component
+const courseData = {
   "nakuru-main": [
-    { id: "full-course-b", name: "Nakuru Main: Class B (18 yrs)", price: 13000, licenseClass: "B" },
-    { id: "full-course-c1", name: "Nakuru Main: Class C1 (22 yrs)", price: 16000, licenseClass: "C1" },
-    { id: "full-course-d1", name: "Nakuru Main: Class D1 (22 yrs)", price: 12000, licenseClass: "D1" },
-    { id: "full-course-a2", name: "Nakuru Main: Class A2 (18 yrs)", price: 6000, licenseClass: "A2" },
-    { id: "refresher-course", name: "Nakuru Main: Short Course", price: 10000, licenseClass: "B" },
+    {
+      id: "full-course-b",
+      name: "Full Course B category",
+      price: 13000,
+      license_class: "B, B1, B2, B3",
+    },
+    {
+      id: "refresher-course",
+      name: "Short Course",
+      price: 10000,
+      license_class: "B",
+    },
   ],
   "thika": [
-    { id: "class-a", name: "Thika: Class A - Motorbike", price: 8200, licenseClass: "A" },
-    { id: "class-b", name: "Thika: Class B - Saloon Car", price: 13700, licenseClass: "B" },
-    { id: "class-c", name: "Thika: Class C - Lorry", price: 15700, licenseClass: "C" },
-    { id: "class-bc", name: "Thika: Class B & C Combined", price: 19200, licenseClass: "B + C" },
+    {
+      id: "class-a",
+      name: "Class A: Motorbike & Tuk Tuk",
+      price: 8200,
+      license_class: "A",
+    },
+    {
+      id: "class-b",
+      name: "Class B: Saloon Car (Manual & Auto)",
+      price: 13700,
+      license_class: "B",
+    },
+    {
+      id: "class-c",
+      name: "Class C: Lorry",
+      price: 15700,
+      license_class: "C",
+    },
+    {
+      id: "class-bc",
+      name: "Class B & C Combined",
+      price: 19200,
+      license_class: "B + C",
+    },
   ],
   "kaimunyi": [
-    // The previous courses have been removed and replaced with this single entry.
-    { id: "kaimunyi-class-b", name: "Kaimunyi: Category B, B1, B2, B3", price: 15000, licenseClass: "B, B1, B2, B3" },
+    {
+      id: "kaimunyi-category-b",
+      name: "Category B, B1, B2, B3",
+      price: 15000,
+      license_class: "B, B1, B2, B3",
+    },
   ],
 };
-
-// A helper object to quickly get all course prices for the emailjs service.
-const coursePrices = Object.values(branchCourses).reduce((acc, courses) => {
-  courses.forEach(course => {
-    acc[course.id] = course.price;
-  });
-  return acc;
-}, {} as { [key: string]: number });
 
 const EnrollmentForm = ({ isOpen, onClose, selectedCourse }: EnrollmentFormProps) => {
   const [formData, setFormData] = useState({
@@ -74,45 +92,62 @@ const EnrollmentForm = ({ isOpen, onClose, selectedCourse }: EnrollmentFormProps
   const [price, setPrice] = useState(0);
   const [availableCourses, setAvailableCourses] = useState<any[]>([]);
 
-  // Effect to handle initial selection and branch change logic
   useEffect(() => {
+    // This effect runs when the modal opens with a pre-selected course.
     if (selectedCourse) {
-      // Find the course's branch and set the form data
-      const branchId = Object.keys(branchCourses).find(branchKey => 
-        branchCourses[branchKey].some(course => course.id === selectedCourse)
-      );
-
-      if (branchId) {
-        setFormData((prev) => ({ ...prev, course: selectedCourse, branch: branchId }));
-        const courseDetails = branchCourses[branchId].find(c => c.id === selectedCourse);
-        setPrice(courseDetails?.price || 0);
-        setAvailableCourses(branchCourses[branchId]);
-      } else {
-        setFormData((prev) => ({ ...prev, course: "", branch: "" }));
-        setPrice(0);
-        setAvailableCourses([]);
+      // Iterate through the branches to find the one containing the selected course ID
+      for (const branchId in courseData) {
+        const foundCourse = courseData[branchId as keyof typeof courseData].find(
+          (c) => c.id === selectedCourse
+        );
+        if (foundCourse) {
+          // If the course is found, set the form data and available courses
+          setFormData((prev) => ({
+            ...prev,
+            course: selectedCourse,
+            branch: branchId,
+            licenseClass: foundCourse.license_class,
+          }));
+          setPrice(foundCourse.price);
+          setAvailableCourses(courseData[branchId as keyof typeof courseData]);
+          return; // Exit the loop once the course is found
+        }
       }
     } else {
-      // Reset if no course is pre-selected
-      setFormData((prev) => ({ ...prev, course: "", branch: "" }));
+      // Reset form data if no course is pre-selected
+      setFormData({
+        fullName: "",
+        phone: "",
+        email: "",
+        course: "",
+        preferredTime: "",
+        licenseClass: "",
+        branch: "",
+      });
       setPrice(0);
       setAvailableCourses([]);
     }
   }, [selectedCourse]);
 
   const handleChange = (field: string, value: string) => {
-    // Special handling for the 'branch' field to reset the course and load new options
     if (field === "branch") {
-      setFormData((prev) => ({ ...prev, branch: value, course: "", licenseClass: "" }));
-      setAvailableCourses(branchCourses[value] || []);
+      setFormData((prev) => ({
+        ...prev,
+        branch: value,
+        course: "", // Reset course when the branch changes
+        licenseClass: "",
+      }));
+      setAvailableCourses(courseData[value as keyof typeof courseData] || []);
       setPrice(0);
     } else if (field === "course") {
-      // When a course is selected, find its details to set the price and license class
-      const selectedCourseDetails = availableCourses.find(c => c.id === value);
-      setFormData((prev) => ({ ...prev, course: value, licenseClass: selectedCourseDetails?.licenseClass || "" }));
+      const selectedCourseDetails = availableCourses.find((c) => c.id === value);
+      setFormData((prev) => ({
+        ...prev,
+        course: value,
+        licenseClass: selectedCourseDetails?.license_class || "",
+      }));
       setPrice(selectedCourseDetails?.price || 0);
     } else {
-      // For all other fields, just update the state
       setFormData((prev) => ({ ...prev, [field]: value }));
     }
   };
@@ -148,6 +183,7 @@ const EnrollmentForm = ({ isOpen, onClose, selectedCourse }: EnrollmentFormProps
       });
 
       onClose();
+      // Reset form fields after successful submission
       setFormData({
         fullName: "",
         phone: "",
@@ -222,9 +258,9 @@ const EnrollmentForm = ({ isOpen, onClose, selectedCourse }: EnrollmentFormProps
                 <SelectValue placeholder="Choose Branch" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="nakuru-main">Nakuru Main - Pioneer Plaza</SelectItem>
-                <SelectItem value="thika">Thika Branch - Wabere St.</SelectItem>
-                <SelectItem value="kaimunyi">Kaimunyi Branch - Olive Inn</SelectItem>
+                <SelectItem value="nakuru-main">Nakuru Town Main Branch</SelectItem>
+                <SelectItem value="thika">Thika Branch</SelectItem>
+                <SelectItem value="kaimunyi">Kaimunyi Branch</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -251,7 +287,6 @@ const EnrollmentForm = ({ isOpen, onClose, selectedCourse }: EnrollmentFormProps
             <Label>License Class</Label>
             <Input
               value={formData.licenseClass}
-              onChange={(e) => handleChange("licenseClass", e.target.value)}
               disabled
               placeholder="Auto-filled"
             />

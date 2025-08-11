@@ -30,8 +30,8 @@ const Courses = () => {
     "nakuru-main": [
       {
         id: "full-course-b",
-        title: "Class B (18 yrs)",
-        license_class: "B",
+        title: "Full Course B category",
+        license_class: "B, B1, B2, B3",
         price: "KSh 13,000",
         tuition: 10500,
         pdl: 650,
@@ -49,66 +49,6 @@ const Courses = () => {
           "In-depth Theory Classes",
           "Flexible Payment Plan",
           "Certified Instructors",
-        ],
-      },
-      {
-        id: "full-course-c1",
-        title: "Class C1 (22 yrs)",
-        license_class: "C1",
-        price: "KSh 16,000",
-        tuition: 13900,
-        pdl: 650,
-        testBooking: 650,
-        interim: 800,
-        deposit: 5000,
-        duration: "Custom Duration",
-        image: lorryImage,
-        category: "Nakuru Town Main Branch",
-        features: [
-          "PDL & Test Booking Included",
-          "20 Practical Lessons",
-          "20 Theory Lessons",
-          "Hands-on Heavy Vehicle Lessons",
-        ],
-      },
-      {
-        id: "full-course-d1",
-        title: "Class D1 (22 yrs)",
-        license_class: "D1",
-        price: "KSh 12,000",
-        tuition: 9900,
-        pdl: 650,
-        testBooking: 650,
-        interim: 800,
-        deposit: 5000,
-        duration: "Custom Duration",
-        image: automaticCarImage, // Placeholder image
-        category: "Nakuru Town Main Branch",
-        features: [
-          "PDL & Test Booking Included",
-          "20 Practical Lessons",
-          "10 Theory Lessons",
-          "Professional Driving Training",
-        ],
-      },
-      {
-        id: "full-course-a2",
-        title: "Class A2 (18 yrs)",
-        license_class: "A2",
-        price: "KSh 6,000",
-        tuition: 3900,
-        pdl: 650,
-        testBooking: 650,
-        interim: 800,
-        deposit: 5000,
-        duration: "Custom Duration",
-        image: motobikeImage,
-        category: "Nakuru Town Main Branch",
-        features: [
-          "PDL & Test Booking Included",
-          "20 Practical Lessons",
-          "10 Theory Lessons",
-          "Motorbike Lessons",
         ],
       },
       {
@@ -368,7 +308,7 @@ const Courses = () => {
                     </ul>
                     <div className="mt-auto">
                         <p className="text-sm font-medium text-[#BBBBBB] text-center mb-2">
-                         Deposit: <span className="font-bold text-[#F5F5F5]">KSh {course.deposit.toLocaleString()}</span>
+                          Deposit: <span className="font-bold text-[#F5F5F5]">KSh {course.deposit.toLocaleString()}</span>
                         </p>
                       <Button
                         className="w-full hover:scale-105 transition-transform duration-200 bg-[#00FF84] hover:bg-[#00e876] text-black"
