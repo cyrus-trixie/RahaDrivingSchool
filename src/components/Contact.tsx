@@ -46,11 +46,11 @@ const Contact = () => {
               location: "Pioneer Plaza, Nakuru",
             },
             {
-              title: "Kaimunyi Branch",
+              title: "Kiamunyi Branch",
               icon: <MapPin className="w-9 h-9 text-[#00FF84] mx-auto" />,
               phone: "+254707808565", // Assuming same phone for now, as no specific number was provided for this branch
               email: "rdskamunyi@gmail.com",
-              location: "Olive Inn, Kaimunyi",
+              location: "Olive Inn, Kiamunyi",
             },
             {
               title: "Thika Branch",

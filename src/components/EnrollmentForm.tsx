@@ -68,9 +68,9 @@ const courseData = {
       license_class: "B + C",
     },
   ],
-  "kaimunyi": [
+  "kiamunyi": [
     {
-      id: "kaimunyi-category-b",
+      id: "kiamunyi-category-b",
       name: "Category B, B1, B2, B3",
       price: 15000,
       license_class: "B, B1, B2, B3",
@@ -260,7 +260,7 @@ const EnrollmentForm = ({ isOpen, onClose, selectedCourse }: EnrollmentFormProps
               <SelectContent>
                 <SelectItem value="nakuru-main">Nakuru Town Main Branch</SelectItem>
                 <SelectItem value="thika">Thika Branch</SelectItem>
-                <SelectItem value="kaimunyi">Kaimunyi Branch</SelectItem>
+                <SelectItem value="kiamunyi">Kiamunyi Branch</SelectItem>
               </SelectContent>
             </Select>
           </div>

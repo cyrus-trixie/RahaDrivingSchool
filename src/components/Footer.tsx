@@ -92,13 +92,13 @@ const Footer = () => {
                 </div>
               </li>
 
-              {/* Kaimunyi Branch */}
+              {/* Kiamunyi Branch */}
               <li>
                 <div className="flex items-start">
                   <MapPin className="w-4 h-4 mr-3 text-[#00FF84] mt-1" />
                   <div>
-                    <p className="font-semibold text-white">Kaimunyi Branch</p>
-                    <p>Olive Inn, Kaimunyi</p>
+                    <p className="font-semibold text-white">Kiamunyi Branch</p>
+                    <p>Olive Inn, Kiamunyi</p>
                     <div className="flex items-center mt-1">
                       <Phone className="w-4 h-4 mr-2 text-[#00FF84]" />
                       <a

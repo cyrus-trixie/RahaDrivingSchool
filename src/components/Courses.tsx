@@ -21,7 +21,7 @@ import lorryImage from "@/assets/images/lorry.png";
 
 const Courses = () => {
   // State to manage the active branch, enrollment form visibility, and selected course
-  const [branch, setBranch] = useState<"nakuru-main" | "thika" | "kaimunyi">("nakuru-main");
+  const [branch, setBranch] = useState<"nakuru-main" | "thika" | "kiamunyi">("nakuru-main");
   const [enrollmentOpen, setEnrollmentOpen] = useState(false);
   const [selectedCourse, setSelectedCourse] = useState<string | null>(null);
 
@@ -152,10 +152,10 @@ const Courses = () => {
         ],
       },
     ],
-    "kaimunyi": [
-      // Only one course is now available for the Kaimunyi branch as requested
+    "kiamunyi": [
+      // Only one course is now available for the Kiamunyi branch as requested
       {
-        id: "kaimunyi-category-b",
+        id: "kiamunyi-category-b",
         title: "Category B, B1, B2, B3",
         license_class: "B, B1, B2, B3",
         price: "KSh 15,000",
@@ -166,7 +166,7 @@ const Courses = () => {
         deposit: 5000,
         duration: "Custom Duration",
         image: manualCarImage, // Using a manual car image for the driving course
-        category: "Kaimunyi Branch",
+        category: "Kiamunyi Branch",
         features: [
           "PDL: KSh 650",
           "Test Booking: KSh 1,050",
@@ -227,13 +227,13 @@ const Courses = () => {
           </Button>
           <Button
             className={`${
-              branch === "kaimunyi"
+              branch === "kiamunyi"
                 ? "bg-[#00FF84] text-black"
                 : "bg-[#2E2E2E] text-[#BBBBBB]"
             } px-4 py-2 rounded-lg m-2`}
-            onClick={() => setBranch("kaimunyi")}
+            onClick={() => setBranch("kiamunyi")}
           >
-            Kaimunyi Branch
+            Kiamunyi Branch
           </Button>
         </div>
 
